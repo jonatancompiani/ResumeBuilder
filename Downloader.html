@@ -8,8 +8,11 @@
     function downloadPdf() {
         fetch('https://localhost:7289/PdfDownload')
             .then(function (response) {
-                var bytes = base64ToArrayBuffer(response.json());
-                saveByteArray('HelloWorld.pdf', bytes);
+                response.json().then(function (data){
+                    var bytes = base64ToArrayBuffer(data);
+                    saveByteArray('HelloWorld.pdf', bytes);
+                })
+                
             })
             .catch(function (err) {
                 alert(err);

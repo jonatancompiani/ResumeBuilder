@@ -2,15 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="avatar.jpg" />
-  </ItemGroup>
-
+	
   <ItemGroup>
     <EmbeddedResource Include="avatar.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -18,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="QuestPDF" Version="2023.12.2" />
+    <ProjectReference Include="..\ResumeBuilder.Application\ResumeBuilder.Application.csproj" />
   </ItemGroup>
 
 </Project>

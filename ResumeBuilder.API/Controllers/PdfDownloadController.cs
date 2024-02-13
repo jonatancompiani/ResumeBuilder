@@ -9,10 +9,10 @@ public class PdfDownloadController : ControllerBase
 {
     public PdfDownloadController() { }
 
-    [HttpGet(Name = "GetPdf")]
+    [HttpGet]
     public byte[] Get()
     {
         Generator gen = new();
-        return gen.GenerateFile();
+        return gen.GetFileBytes();
     }
 }
