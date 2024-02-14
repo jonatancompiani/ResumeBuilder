@@ -1,5 +1,4 @@
 ﻿using QuestPDF.Fluent;
-using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
 using SkiaSharp;
@@ -26,6 +25,13 @@ public class Generator
         var document = GenerateDocument();
 
         return document.GeneratePdf();
+    }
+
+    public IEnumerable<byte[]> GetImageBytes()
+    {
+        var document = GenerateDocument();
+
+        return document.GenerateImages();
     }
 
     public void PreviewFile()
@@ -175,7 +181,7 @@ public class Generator
                                             skills.Item().PaddingTop(5).Row(row =>
                                             {
                                                 row.Spacing(5);
-                                                row.AutoItem().Text($"-").FontColor(_textColor);
+                                                row.AutoItem().Text($"•").FontSize(10).FontColor(_textColor);
                                                 row.RelativeItem().Text(skill).FontSize(10).FontColor(_textColor);
                                             });
                                         }
@@ -208,7 +214,7 @@ public class Generator
                                             skills.Item().PaddingTop(5).Row(row =>
                                             {
                                                 row.Spacing(5);
-                                                row.AutoItem().Text($"-").FontColor(_textColor);
+                                                row.AutoItem().Text($"•").FontSize(10).FontColor(_textColor);
                                                 row.RelativeItem().Text(language).FontSize(10).FontColor(_textColor);
                                             });
                                         }

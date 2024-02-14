@@ -21,22 +21,25 @@
                             const source = event.target || event.srcElement;
                             selectedColor = rgb2hex(source.style.backgroundColor);
                             document.getElementById('downloadBtn').disabled = false;
-                            document.getElementById('header').innerText = "Selected Color: " + selectedColor;
-                            document.getElementById('header').style.color = selectedColor;
+                            previewPdf(selectedColor);
                         }, false);
                         document.body.appendChild(newButton);
                     }
 
-                    const newButton = document.createElement('button');
-                    newButton.id = 'downloadBtn';
-                    newButton.disabled = true;
-                    newButton.textContent = 'Download';
-                    newButton.addEventListener('click', function () {
+                    const downloadButton = document.createElement('button');
+                    downloadButton.id = 'downloadBtn';
+                    downloadButton.disabled = true;
+                    downloadButton.textContent = 'Download';
+                    downloadButton.addEventListener('click', function () {
                         downloadPdf(selectedColor);
                     }, false);
+                    
                     document.body.appendChild(document.createElement("br"));
                     document.body.appendChild(document.createElement("br"));
-                    document.body.appendChild(newButton);
+                    document.body.appendChild(downloadButton);
+                    document.body.appendChild(document.createElement("br"));
+                    document.body.appendChild(document.createElement("br"));
+
                 })
             })
             .catch(function (err) {
@@ -45,7 +48,31 @@
     }
 
 
+    function previewPdf(color) {
+        var uri = 'https://localhost:7289/PdfGeneration/Preview?color=' + encodeURIComponent(color);
+        fetch(uri)
+            .then(function (response) {
+                response.json().then(function (data) {
 
+                    var elem = document.getElementById('imgPreview')
+
+                    if (!!elem) {
+                        elem.src = 'data:image/png;base64,' + data[0];
+                    }
+                    else {
+                        const previewImg = document.createElement('img');
+                        previewImg.id = 'imgPreview';
+                        previewImg.src = 'data:image/png;base64,' + data[0];
+                        previewImg.height = window.screen.height * 0.6;
+                        document.body.appendChild(previewImg);
+                    }
+                })
+
+            })
+            .catch(function (err) {
+                alert(err);
+            });
+    }
 
     function downloadPdf(color) {
 
