@@ -10,9 +10,11 @@ public class PdfGenerationController : ControllerBase
     public PdfGenerationController() { }
 
     [HttpGet("Download")]
-    public byte[] Get()
+    public byte[] Get(string color)
     {
-        Generator gen = new(new(Theme.Blue));
+        var theme = Application.Content.ThemeColors.FirstOrDefault(x=> x.Value == color);
+       
+        Generator gen = new(new(theme.Key));
         return gen.GetFileBytes();
     }
 
