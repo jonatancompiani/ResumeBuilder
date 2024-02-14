@@ -100,7 +100,7 @@ public class Generator
                                         }));
 
                                 sidebar.Cell().Row(2).ShowOnce().Element(container => container
-                                    .AlignLeft()
+                                    .AlignCenter()
                                     .Text(_content.Name)
                                     .FontSize(24)
                                     .FontColor(_textColor)
@@ -111,7 +111,7 @@ public class Generator
                                     .Row(3)
                                     .ShowOnce()
                                     .Element(container => container
-                                            .AlignLeft()
+                                            .AlignCenter()
                                             .Text(_content.Profession)
                                             .FontSize(12)
                                             .FontColor(_textColor)
@@ -131,33 +131,108 @@ public class Generator
 
                                 sidebar.Cell().Row(5).ShowOnce().LineHorizontal(1).LineColor(_textColor);
 
-                                sidebar
-                                .Cell()
-                                .Row(6)
-                                .ShowOnce()
-                                .Element(container => container
-                                        .AlignLeft()
+                                //sidebar.Cell().Row(6)
+                                //.ShowOnce()
+                                //.Element(container => container
+                                //        .AlignLeft()
+                                //        .PaddingTop(10)
+                                //        .Text(_content.Phone)
+                                //        .FontSize(12)
+                                //        .FontColor(_textColor)
+                                //        );
+
+                                sidebar.Cell().Row(6).ShowOnce().Table(contactTable =>
+                                {
+                                    contactTable.ColumnsDefinition(c =>
+                                    {
+                                        c.ConstantColumn(10, Unit.Millimetre);
+                                        c.RelativeColumn();
+                                    });
+
+                                    contactTable.Cell()
+                                       .Row(1)
+                                       .Column(1)
+                                       .PaddingTop(10)
+                                       .Height(18)
+                                       .Image(_content.addressImg)
+                                       .FitHeight();
+
+                                    contactTable.Cell()
+                                       .Row(2)
+                                       .Column(1)
+                                       .PaddingTop(10)
+                                       .Height(18)
+                                       .Image(_content.phoneImg)
+                                       .FitHeight();
+
+                                    contactTable.Cell()
+                                       .Row(3)
+                                       .Column(1)
+                                       .PaddingTop(10)
+                                       .Height(18)
+                                       .Image(_content.emailImg)
+                                       .FitHeight();
+
+                                    contactTable.Cell()
+                                       .Row(4)
+                                       .Column(1)
+                                       .PaddingTop(10)
+                                       .Height(18)
+                                       .Image(_content.linkedinImg)
+                                       .FitHeight();
+
+                                    contactTable.Cell()
+                                      .Row(5)
+                                      .Column(1)
+                                      .PaddingTop(10)
+                                      .Height(18)
+                                      .Image(_content.githubImg)
+                                      .FitHeight();
+
+                                    contactTable.Cell()
+                                        .Row(1)
+                                        .Column(2)
+                                        .PaddingTop(10)
+                                        .Text(_content.Address)
+                                        .FontSize(12)
+                                        .FontColor(_textColor);
+
+                                    contactTable.Cell()
+                                        .Row(2)
+                                        .Column(2)
                                         .PaddingTop(10)
                                         .Text(_content.Phone)
                                         .FontSize(12)
-                                        .FontColor(_textColor)
-                                        );
+                                        .FontColor(_textColor);
 
-                                sidebar
-                                .Cell()
-                                .Row(7)
-                                .ShowOnce()
-                                .Element(container => container
-                                        .AlignLeft()
+                                    contactTable.Cell()
+                                        .Row(3)
+                                        .Column(2)
                                         .PaddingTop(10)
                                         .Text(_content.Email)
                                         .FontSize(12)
-                                        .FontColor(_textColor)
-                                        );
+                                        .FontColor(_textColor);
+
+                                    contactTable.Cell()
+                                        .Row(4)
+                                        .Column(2)
+                                        .PaddingTop(10)
+                                        .Text(_content.Linkedin)
+                                        .FontSize(12)
+                                        .FontColor(_textColor);
+
+                                    contactTable.Cell()
+                                        .Row(5)
+                                        .Column(2)
+                                        .PaddingTop(10)
+                                        .Text(_content.Github)
+                                        .FontSize(12)
+                                        .FontColor(_textColor);
+                                });
 
                                 sidebar
                                     .Cell()
-                                    .Row(8)
+                                    .Row(7)
                                     .ShowOnce()
                                     .PaddingTop(20)
                                     .Element(container => container
@@ -168,11 +243,11 @@ public class Generator
                                             .FontColor(_textColor)
                                             );
 
-                                sidebar.Cell().Row(9).ShowOnce().LineHorizontal(1).LineColor(_textColor);
+                                sidebar.Cell().Row(8).ShowOnce().LineHorizontal(1).LineColor(_textColor);
 
                                 sidebar
                                     .Cell()
-                                    .Row(10)
+                                    .Row(9)
                                     .ShowOnce()
                                     .Column(skills =>
                                     {
@@ -190,7 +265,7 @@ public class Generator
 
                                 sidebar
                                     .Cell()
-                                    .Row(11)
+                                    .Row(10)
                                     .ShowOnce()
                                     .PaddingTop(20)
                                     .Element(container => container
@@ -201,25 +276,23 @@ public class Generator
                                             .FontColor(_textColor)
                                             );
 
-                                sidebar.Cell().Row(12).ShowOnce().LineHorizontal(1).LineColor(_textColor);
+                                sidebar.Cell().Row(11).ShowOnce().LineHorizontal(1).LineColor(_textColor);
 
-                                sidebar
-                                    .Cell()
-                                    .Row(13)
-                                    .ShowOnce()
-                                    .Column(skills =>
+                                sidebar.Cell().Row(12).Table(langTable =>
+                                {
+                                    langTable.ColumnsDefinition(column => column.RelativeColumn());
+
+                                    foreach (var language in _content.LanguageList)
                                     {
-                                        foreach (var language in _content.LanguageList)
+                                        langTable.Cell().PaddingTop(8).Table(x =>
                                         {
-                                            skills.Item().PaddingTop(5).Row(row =>
-                                            {
-                                                row.Spacing(5);
-                                                row.AutoItem().Text($"•").FontSize(10).FontColor(_textColor);
-                                                row.RelativeItem().Text(language).FontSize(10).FontColor(_textColor);
-                                            });
-                                        }
+                                            x.ColumnsDefinition(column => column.RelativeColumn());
 
-                                    });
+                                            x.Cell().Row(2).Text($"• {language.Name}").FontSize(10).FontColor(_textColor);
+                                            x.Cell().Row(3).Text($"     {language.Level}").Light().FontSize(9).FontColor(_textColor);
+                                        });
+                                    }
+                                });
                             }
                             ));
 
@@ -258,13 +331,48 @@ public class Generator
                                     );
                                 body.Cell().Row(4).ShowOnce().LineHorizontal(1).LineColor(_primaryColor);
 
-                                body.Cell().Row(5).Element(container => container
+                                body.Cell().Row(5).Table(xpTable =>
+                                {
+                                    xpTable.ColumnsDefinition(column => column.RelativeColumn());
+
+                                    foreach (var wex in _content.WorkExperienceList)
+                                    {
+                                        xpTable.Cell().ShowEntire().Table(x =>
+                                        {
+                                            x.ColumnsDefinition(column => column.RelativeColumn());
+                                            x.Cell().Row(1).PaddingTop(10).Text($"{wex.StartDate} - {wex.EndDate}").Thin().FontSize(9);
+                                            x.Cell().Row(2).Text(wex.Role).Bold();
+                                            x.Cell().Row(3).Text(wex.Company).Light();
+                                            x.Cell().Row(4).Text(wex.Description);
+                                        });
+                                    }
+                                });
+
+                                body.Cell().Row(6).Element(container => container
                                     .AlignLeft()
+                                    .PaddingTop(10)
                                     .PaddingBottom(10)
                                     .Text(_content.HeaderEducation)
                                     .FontSize(12)
                                     );
-                                body.Cell().Row(6).ShowOnce().LineHorizontal(1).LineColor(_primaryColor);
+                                body.Cell().Row(7).ShowOnce().LineHorizontal(1).LineColor(_primaryColor);
+
+                                body.Cell().Row(8).Table(xpTable =>
+                                {
+                                    xpTable.ColumnsDefinition(column => column.RelativeColumn());
+
+                                    foreach (var edu in _content.EducationList)
+                                    {
+                                        xpTable.Cell().ShowEntire().Table(x =>
+                                        {
+                                            x.ColumnsDefinition(column => column.RelativeColumn());
+                                            x.Cell().Row(1).PaddingTop(10).Text(edu.Year).Thin().FontSize(9);
+                                            x.Cell().Row(2).Text(edu.Title).Bold();
+                                            x.Cell().Row(3).Text(edu.Institution).Light();
+                                            x.Cell().Row(4).Text(edu.Description);
+                                        });
+                                    }
+                                });
 
                             }));
                 });
