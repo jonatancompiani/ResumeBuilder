@@ -96,7 +96,7 @@ public class Generator
                                 sidebar.Cell().Row(2).ShowOnce().Element(container => container
                                     .AlignLeft()
                                     .Text(_content.Name)
-                                    .FontSize(22)
+                                    .FontSize(24)
                                     .FontColor(_textColor)
                                     );
 
@@ -107,7 +107,7 @@ public class Generator
                                     .Element(container => container
                                             .AlignLeft()
                                             .Text(_content.Profession)
-                                            .FontSize(16)
+                                            .FontSize(12)
                                             .FontColor(_textColor)
                                             );
                                 sidebar
@@ -119,7 +119,7 @@ public class Generator
                                             .AlignLeft()
                                             .PaddingBottom(10)
                                             .Text(_content.HeaderContact)
-                                            .FontSize(16)
+                                            .FontSize(12)
                                             .FontColor(_textColor)
                                             );
 
@@ -158,7 +158,7 @@ public class Generator
                                             .AlignLeft()
                                             .PaddingBottom(10)
                                             .Text(_content.HeaderSkills)
-                                            .FontSize(16)
+                                            .FontSize(12)
                                             .FontColor(_textColor)
                                             );
 
@@ -176,7 +176,7 @@ public class Generator
                                             {
                                                 row.Spacing(5);
                                                 row.AutoItem().Text($"-").FontColor(_textColor);
-                                                row.RelativeItem().Text(skill).FontColor(_textColor);
+                                                row.RelativeItem().Text(skill).FontSize(10).FontColor(_textColor);
                                             });
                                         }
 
@@ -191,7 +191,7 @@ public class Generator
                                             .AlignLeft()
                                             .PaddingBottom(10)
                                             .Text(_content.HeaderLanguages)
-                                            .FontSize(16)
+                                            .FontSize(12)
                                             .FontColor(_textColor)
                                             );
 
@@ -209,7 +209,7 @@ public class Generator
                                             {
                                                 row.Spacing(5);
                                                 row.AutoItem().Text($"-").FontColor(_textColor);
-                                                row.RelativeItem().Text(language).FontColor(_textColor);
+                                                row.RelativeItem().Text(language).FontSize(10).FontColor(_textColor);
                                             });
                                         }
 
@@ -232,7 +232,7 @@ public class Generator
                                     .AlignLeft()
                                     .PaddingBottom(10)
                                     .Text(_content.HeaderSummary)
-                                    .FontSize(20)
+                                    .FontSize(12)
                                     );
 
                                 body.Cell().Row(2).ShowOnce().LineHorizontal(1).LineColor(_primaryColor);
@@ -241,14 +241,14 @@ public class Generator
                                                                     .AlignLeft()
                                                                     .PaddingBottom(10)
                                                                     .Text(_content.Summary)
-                                                                    .FontSize(14)
+                                                                    .FontSize(12)
                                                                     );
 
                                 body.Cell().Row(3).Element(container => container
                                     .AlignLeft()
                                     .PaddingBottom(10)
                                     .Text(_content.HeaderExperience)
-                                    .FontSize(20)
+                                    .FontSize(12)
                                     );
                                 body.Cell().Row(4).ShowOnce().LineHorizontal(1).LineColor(_primaryColor);
 
@@ -256,7 +256,7 @@ public class Generator
                                     .AlignLeft()
                                     .PaddingBottom(10)
                                     .Text(_content.HeaderEducation)
-                                    .FontSize(20)
+                                    .FontSize(12)
                                     );
                                 body.Cell().Row(6).ShowOnce().LineHorizontal(1).LineColor(_primaryColor);
 
