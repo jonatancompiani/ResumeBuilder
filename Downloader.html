@@ -6,7 +6,7 @@
 
 <script>
     function downloadPdf() {
-        fetch('https://localhost:7289/PdfDownload')
+        fetch('https://localhost:7289/PdfGeneration/Download')
             .then(function (response) {
                 response.json().then(function (data){
                     var bytes = base64ToArrayBuffer(data);
