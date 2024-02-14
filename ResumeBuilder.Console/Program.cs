@@ -3,6 +3,6 @@ using ResumeBuilder.Application;
 
 QuestPDF.Settings.License = LicenseType.Community;
 
-Generator gen = new Generator();
+Generator gen = new(new(Theme.Cyan));
 gen.PreviewFile();
 

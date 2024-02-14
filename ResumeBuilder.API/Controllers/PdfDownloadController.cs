@@ -12,7 +12,7 @@ public class PdfDownloadController : ControllerBase
     [HttpGet]
     public byte[] Get()
     {
-        Generator gen = new();
+        Generator gen = new(new(Theme.Blue));
         return gen.GetFileBytes();
     }
 }

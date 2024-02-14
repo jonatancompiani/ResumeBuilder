@@ -8,10 +8,18 @@ namespace ResumeBuilder.Application;
 
 public class Generator
 {
-    string sidebarBackgroundColor = Colors.Blue.Darken4;
-    string sidebarTextColor = Colors.White;
+    Content _content;
+    private Image _image;
+    string _primaryColor;
+    string _textColor;
 
-    Image image = Image.FromFile(@".\avatar.jpg");
+    public Generator(Content content)
+    {
+        _content = content;
+        _image = Image.FromFile(content.ImagePath);
+        _primaryColor = content.PrimaryColor;
+        _textColor = content.TextColor;
+    }
 
     public byte[] GetFileBytes()
     {
@@ -46,8 +54,8 @@ public class Generator
                         .Row(1)
                         .Column(1)
                         .Border(1)
-                        .BorderColor(sidebarBackgroundColor)
-                        .Background(sidebarBackgroundColor)
+                        .BorderColor(_primaryColor)
+                        .Background(_primaryColor)
                         .ExtendVertical()
                         .Padding(15)
                         .Element(e => e
@@ -67,14 +75,14 @@ public class Generator
                                         {
                                             layers
                                             .PrimaryLayer()
-                                                .Image(image)
+                                                .Image(_image)
                                                 .FitHeight();
 
                                             layers.Layer().Canvas((canvas, size) =>
                                             {
                                                 canvas.DrawRoundRect(-15, -15, 150, 150, 80, 80, new SKPaint
                                                 {
-                                                    Color = SKColor.Parse(sidebarBackgroundColor),
+                                                    Color = SKColor.Parse(_primaryColor),
                                                     IsStroke = true,
                                                     StrokeWidth = 30,
                                                     IsAntialias = true
@@ -87,9 +95,9 @@ public class Generator
 
                                 sidebar.Cell().Row(2).ShowOnce().Element(container => container
                                     .AlignLeft()
-                                    .Text("Name Surname")
+                                    .Text(_content.Name)
                                     .FontSize(22)
-                                    .FontColor(sidebarTextColor)
+                                    .FontColor(_textColor)
                                     );
 
                                 sidebar
@@ -98,9 +106,9 @@ public class Generator
                                     .ShowOnce()
                                     .Element(container => container
                                             .AlignLeft()
-                                            .Text("Profession")
+                                            .Text(_content.Profession)
                                             .FontSize(16)
-                                            .FontColor(sidebarTextColor)
+                                            .FontColor(_textColor)
                                             );
                                 sidebar
                                     .Cell()
@@ -110,12 +118,12 @@ public class Generator
                                     .Element(container => container
                                             .AlignLeft()
                                             .PaddingBottom(10)
-                                            .Text("Contact")
+                                            .Text(_content.HeaderContact)
                                             .FontSize(16)
-                                            .FontColor(sidebarTextColor)
+                                            .FontColor(_textColor)
                                             );
 
-                                sidebar.Cell().Row(5).ShowOnce().LineHorizontal(1).LineColor(sidebarTextColor);
+                                sidebar.Cell().Row(5).ShowOnce().LineHorizontal(1).LineColor(_textColor);
 
                                 sidebar
                                 .Cell()
@@ -124,9 +132,9 @@ public class Generator
                                 .Element(container => container
                                         .AlignLeft()
                                         .PaddingTop(10)
-                                        .Text("+123 456 789 012")
+                                        .Text(_content.Phone)
                                         .FontSize(12)
-                                        .FontColor(sidebarTextColor)
+                                        .FontColor(_textColor)
                                         );
 
                                 sidebar
@@ -136,9 +144,9 @@ public class Generator
                                 .Element(container => container
                                         .AlignLeft()
                                         .PaddingTop(10)
-                                        .Text("email.email@email.com")
+                                        .Text(_content.Email)
                                         .FontSize(12)
-                                        .FontColor(sidebarTextColor)
+                                        .FontColor(_textColor)
                                         );
 
                                 sidebar
@@ -149,12 +157,12 @@ public class Generator
                                     .Element(container => container
                                             .AlignLeft()
                                             .PaddingBottom(10)
-                                            .Text("Skills")
+                                            .Text(_content.HeaderSkills)
                                             .FontSize(16)
-                                            .FontColor(sidebarTextColor)
+                                            .FontColor(_textColor)
                                             );
 
-                                sidebar.Cell().Row(9).ShowOnce().LineHorizontal(1).LineColor(sidebarTextColor);
+                                sidebar.Cell().Row(9).ShowOnce().LineHorizontal(1).LineColor(_textColor);
 
                                 sidebar
                                     .Cell()
@@ -162,13 +170,13 @@ public class Generator
                                     .ShowOnce()
                                     .Column(skills =>
                                     {
-                                        foreach (var i in Enumerable.Range(1, 5))
+                                        foreach (var skill in _content.SkillList)
                                         {
                                             skills.Item().PaddingTop(5).Row(row =>
                                             {
                                                 row.Spacing(5);
-                                                row.AutoItem().Text($"-").FontColor(sidebarTextColor);
-                                                row.RelativeItem().Text($"Skill {i}").FontColor(sidebarTextColor);
+                                                row.AutoItem().Text($"-").FontColor(_textColor);
+                                                row.RelativeItem().Text(skill).FontColor(_textColor);
                                             });
                                         }
 
@@ -182,12 +190,12 @@ public class Generator
                                     .Element(container => container
                                             .AlignLeft()
                                             .PaddingBottom(10)
-                                            .Text("Languages")
+                                            .Text(_content.HeaderLanguages)
                                             .FontSize(16)
-                                            .FontColor(sidebarTextColor)
+                                            .FontColor(_textColor)
                                             );
 
-                                sidebar.Cell().Row(12).ShowOnce().LineHorizontal(1).LineColor(sidebarTextColor);
+                                sidebar.Cell().Row(12).ShowOnce().LineHorizontal(1).LineColor(_textColor);
 
                                 sidebar
                                     .Cell()
@@ -195,13 +203,13 @@ public class Generator
                                     .ShowOnce()
                                     .Column(skills =>
                                     {
-                                        foreach (var i in Enumerable.Range(1, 3))
+                                        foreach (var language in _content.LanguageList)
                                         {
                                             skills.Item().PaddingTop(5).Row(row =>
                                             {
                                                 row.Spacing(5);
-                                                row.AutoItem().Text($"-").FontColor(sidebarTextColor);
-                                                row.RelativeItem().Text($"Language {i}").FontColor(sidebarTextColor);
+                                                row.AutoItem().Text($"-").FontColor(_textColor);
+                                                row.RelativeItem().Text(language).FontColor(_textColor);
                                             });
                                         }
 
@@ -223,27 +231,34 @@ public class Generator
                                 body.Cell().Row(1).Element(container => container
                                     .AlignLeft()
                                     .PaddingBottom(10)
-                                    .Text("Carreer Objective")
+                                    .Text(_content.HeaderSummary)
                                     .FontSize(20)
                                     );
 
-                                body.Cell().Row(2).ShowOnce().LineHorizontal(1).LineColor(sidebarBackgroundColor);
+                                body.Cell().Row(2).ShowOnce().LineHorizontal(1).LineColor(_primaryColor);
+
+                                body.Cell().Row(2).Element(container => container
+                                                                    .AlignLeft()
+                                                                    .PaddingBottom(10)
+                                                                    .Text(_content.Summary)
+                                                                    .FontSize(14)
+                                                                    );
 
                                 body.Cell().Row(3).Element(container => container
                                     .AlignLeft()
                                     .PaddingBottom(10)
-                                    .Text("Experience")
+                                    .Text(_content.HeaderExperience)
                                     .FontSize(20)
                                     );
-                                body.Cell().Row(4).ShowOnce().LineHorizontal(1).LineColor(sidebarBackgroundColor);
+                                body.Cell().Row(4).ShowOnce().LineHorizontal(1).LineColor(_primaryColor);
 
                                 body.Cell().Row(5).Element(container => container
                                     .AlignLeft()
                                     .PaddingBottom(10)
-                                    .Text("Education")
+                                    .Text(_content.HeaderEducation)
                                     .FontSize(20)
                                     );
-                                body.Cell().Row(6).ShowOnce().LineHorizontal(1).LineColor(sidebarBackgroundColor);
+                                body.Cell().Row(6).ShowOnce().LineHorizontal(1).LineColor(_primaryColor);
 
                             }));
                 });
