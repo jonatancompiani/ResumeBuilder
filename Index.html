@@ -8,7 +8,7 @@
 
     var selectedColor = '';
     function initialize() {
-        fetch('https://resumebuilderapi.azure-api.net/pdfgeneration/colors)
+        fetch('https://resumebuilderapi.azure-api.net/pdfgeneration/colors')
             .then(function (response) {
                 response.json().then(function (data) {
                     for (var i = 0; i < data.length; i++) {
