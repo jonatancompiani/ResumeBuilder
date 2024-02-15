@@ -1,6 +1,6 @@
-@ResumeBuilder.API_HostAddress = http://localhost:5001
+@ResumeBuilder.API_HostAddress = https://resumebuilderapi.azure-api.net/
 
-GET {{ResumeBuilder.API_HostAddress}}/weatherforecast/
+GET {{ResumeBuilder.API_HostAddress}}/pdfgeneration/colors
 Accept: application/json
 
 ###

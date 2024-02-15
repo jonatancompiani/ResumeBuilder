@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumeBuilder.Console", "Re
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{99AEB357-4F7C-4C19-8DD9-443BE6AA67C9}"
 	ProjectSection(SolutionItems) = preProject
-		Downloader.html = Downloader.html
+		Index.html = Index.html
 	EndProjectSection
 EndProject
 Global

@@ -8,7 +8,7 @@
 
     var selectedColor = '';
     function initialize() {
-        fetch('https://localhost:7289/PdfGeneration/Colors')
+        fetch('https://resumebuilderapi.azure-api.net/pdfgeneration/colors)
             .then(function (response) {
                 response.json().then(function (data) {
                     for (var i = 0; i < data.length; i++) {
@@ -49,7 +49,7 @@
 
 
     function previewPdf(color) {
-        var uri = 'https://localhost:7289/PdfGeneration/Preview?color=' + encodeURIComponent(color);
+        var uri = 'https://resumebuilderapi.azure-api.net/PdfGeneration/Preview?color=' + encodeURIComponent(color);
         fetch(uri)
             .then(function (response) {
                 response.json().then(function (data) {
@@ -76,7 +76,7 @@
 
     function downloadPdf(color) {
 
-        var uri = 'https://localhost:7289/PdfGeneration/Download?color=' + encodeURIComponent(color);
+        var uri = 'https://resumebuilderapi.azure-api.net/PdfGeneration/Download?color=' + encodeURIComponent(color);
         fetch(uri)
             .then(function (response) {
                 response.json().then(function (data){
