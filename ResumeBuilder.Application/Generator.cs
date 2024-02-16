@@ -8,14 +8,12 @@ namespace ResumeBuilder.Application;
 public class Generator
 {
     Content _content;
-    private Image _image;
     string _primaryColor;
     string _textColor;
 
     public Generator(Content content)
     {
         _content = content;
-        _image = Image.FromFile(content.ImagePath);
         _primaryColor = content.PrimaryColor;
         _textColor = content.TextColor;
     }
@@ -81,7 +79,7 @@ public class Generator
                                         {
                                             layers
                                             .PrimaryLayer()
-                                                .Image(_image)
+                                                .Image(_content.b64avatarImg)
                                                 .FitHeight();
 
                                             layers.Layer().Canvas((canvas, size) =>
@@ -154,7 +152,7 @@ public class Generator
                                        .Column(1)
                                        .PaddingTop(10)
                                        .Height(18)
-                                       .Image(_content.addressImg)
+                                       .Image(_content.b64addressImg)
                                        .FitHeight();
 
                                     contactTable.Cell()
@@ -162,7 +160,7 @@ public class Generator
                                        .Column(1)
                                        .PaddingTop(10)
                                        .Height(18)
-                                       .Image(_content.phoneImg)
+                                       .Image(_content.b64phoneImg)
                                        .FitHeight();
 
                                     contactTable.Cell()
@@ -170,7 +168,7 @@ public class Generator
                                        .Column(1)
                                        .PaddingTop(10)
                                        .Height(18)
-                                       .Image(_content.emailImg)
+                                       .Image(_content.b64emailImg)
                                        .FitHeight();
 
                                     contactTable.Cell()
@@ -178,7 +176,7 @@ public class Generator
                                        .Column(1)
                                        .PaddingTop(10)
                                        .Height(18)
-                                       .Image(_content.linkedinImg)
+                                       .Image(_content.b64linkedinImg)
                                        .FitHeight();
 
                                     contactTable.Cell()
@@ -186,7 +184,7 @@ public class Generator
                                       .Column(1)
                                       .PaddingTop(10)
                                       .Height(18)
-                                      .Image(_content.githubImg)
+                                      .Image(_content.b64githubImg)
                                       .FitHeight();
 
                                     contactTable.Cell()
