@@ -1,4 +1,5 @@
-name: Build and deploy .NET Core application to Web App ResumeBuilderAPI20240215190334 with API Management Service ResumeBuilderAPI-ResumeBuilderAPI
+name: Backend Build and Deploy
+## Build and deploy .NET Core application to Web App ResumeBuilderAPI20240215190334 with API Management Service ResumeBuilderAPI-ResumeBuilderAPI
 on:
   push:
     branches:
