@@ -17,7 +17,7 @@ env:
   API_IMPORT_DLL: ResumeBuilder.API/bin/Release/net8.0/ResumeBuilder.API.dll
   API_IMPORT_VERSION: v1
   CONFIGURATION: Release
-  DOTNET_CORE_VERSION: 8.0.x
+  DOTNET_CORE_VERSION: 8.0.2
   WORKING_DIRECTORY: ResumeBuilder.API
 jobs:
   build:
