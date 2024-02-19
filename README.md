@@ -2,7 +2,7 @@
 
 ### A (truly) free resume builder for those in need
 
-[![Backend Build and Deploy](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/ResumeBuilderAPI20240215190334.yml/badge.svg)](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/ResumeBuilderAPI20240215190334.yml)
+[![Backend Deploy](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/azure-webapps-dotnet-core.yml/badge.svg)](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/azure-webapps-dotnet-core.yml)
 [![pages-build-deployment](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/pages/pages-build-deployment/badge.svg?branch=master)](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/pages/pages-build-deployment)
 
 :construction: Work in progress :construction:
