@@ -1,14 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using ResumeBuilder.Application;
-using System.Drawing;
 
 namespace ResumeBuilder.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class PdfGenerationController : ControllerBase
+public class DocController : ControllerBase
 {
-    public PdfGenerationController() { }
+    public DocController() { }
 
     [HttpGet("Download")]
     public byte[] Get(string color)

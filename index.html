@@ -6,9 +6,11 @@
 
 <script>
 
+    var host = 'https://resumebuilder-api-management-service.azure-api.net/';
+
     var selectedColor = '';
     function initialize() {
-        fetch('https://resumebuilder-api-management-service.azure-api.net/pdfgeneration/colors')
+        fetch(host+'Doc/colors')
             .then(function (response) {
                 response.json().then(function (data) {
                     for (var i = 0; i < data.length; i++) {
@@ -49,7 +51,7 @@
 
 
     function previewPdf(color) {
-        var uri = 'https://resumebuilder-api-management-service.azure-api.net/PdfGeneration/Preview?color=' + encodeURIComponent(color);
+        var uri = host + 'Doc/Preview?color=' + encodeURIComponent(color);
         fetch(uri)
             .then(function (response) {
                 response.json().then(function (data) {
@@ -76,7 +78,7 @@
 
     function downloadPdf(color) {
 
-        var uri = 'https://resumebuilder-api-management-service.azure-api.net/PdfGeneration/Download?color=' + encodeURIComponent(color);
+        var uri = host + 'Doc/Download?color=' + encodeURIComponent(color);
         fetch(uri)
             .then(function (response) {
                 response.json().then(function (data){
