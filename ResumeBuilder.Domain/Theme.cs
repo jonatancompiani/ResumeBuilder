@@ -1,4 +1,4 @@
-﻿namespace ResumeBuilder.Application;
+﻿namespace ResumeBuilder.Domain;
 
 public enum Theme
 {

@@ -7,6 +7,7 @@
 <script>
 
     var host = 'https://freeresumebuilder.azurewebsites.net/';
+    //var host = 'https://localhost:7289/';
 
     var selectedColor = '';
     function initialize() {
@@ -51,7 +52,7 @@
 
 
     function previewPdf(color) {
-        var uri = host + 'Doc/Preview?color=' + encodeURIComponent(color);
+        var uri = host + 'Doc/ExamplePreview?color=' + encodeURIComponent(color);
         fetch(uri)
             .then(function (response) {
                 response.json().then(function (data) {
@@ -78,7 +79,7 @@
 
     function downloadPdf(color) {
 
-        var uri = host + 'Doc/Download?color=' + encodeURIComponent(color);
+        var uri = host + 'Doc/ExampleDownload?color=' + encodeURIComponent(color);
         fetch(uri)
             .then(function (response) {
                 response.json().then(function (data){

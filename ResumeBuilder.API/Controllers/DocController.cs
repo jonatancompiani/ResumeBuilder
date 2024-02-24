@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ResumeBuilder.Application;
+using ResumeBuilder.Domain.dto;
 
 namespace ResumeBuilder.API.Controllers;
 
@@ -9,27 +10,33 @@ public class DocController : ControllerBase
 {
     public DocController() { }
 
-    [HttpGet("Download")]
+    [HttpGet("ExampleDownload")]
+    [Tags("Example")]
     public byte[] Get(string color)
     {
-        var theme = Application.Content.ThemeColors.FirstOrDefault(x=> x.Value == color);
-       
-        Generator gen = new(new(theme.Key));
+        Generator gen = new(new(color));
         return gen.GetFileBytes();
     }
 
     [HttpGet("Colors")]
-    public List<string> GetColors()
+    public IEnumerable<string> GetColors()
     {
-        return Application.Content.ThemeColors.Values.ToList();
+        return Generator.GetAvailableColors();
     }
 
-    [HttpGet("Preview")]
+    [HttpGet("ExamplePreview")]
+    [Tags("Example")]
     public IEnumerable<byte[]> GetPreview(string color)
     {
-        var theme = Application.Content.ThemeColors.FirstOrDefault(x => x.Value == color);
+        Generator gen = new(new(color));
+        return gen.GetImageBytes();
+    }
 
-        Generator gen = new(new(theme.Key));
+    [HttpPost("Preview")]
+    public IEnumerable<byte[]> PostPreview(ContentRequest content)
+    {
+        QuestPdfContent c = new(content);
+        Generator gen = new(c);
         return gen.GetImageBytes();
     }
 }

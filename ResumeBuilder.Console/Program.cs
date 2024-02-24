@@ -5,12 +5,12 @@ using System.Text.Json;
 QuestPDF.Settings.License = LicenseType.Community;
 
 
-var c = new Content(Theme.Green);
+//var c = new Content(Theme.Green);
 
-c.Name = "Potato Batata";
+//c.Name = "Potato Batata";
 
-string serialized = JsonSerializer.Serialize(c);
+//string serialized = JsonSerializer.Serialize(c);
 
-Generator gen = new(c);
-gen.PreviewFile();
+//Generator gen = new(c);
+//gen.PreviewFile();
 
