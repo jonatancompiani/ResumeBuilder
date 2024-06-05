@@ -8,4 +8,6 @@
 Demo
 https://jonatancompiani.github.io/ResumeBuilder/
 
+[Example](Docs/john-doe-resume.png)
+
 :construction: Work in progress :construction:
