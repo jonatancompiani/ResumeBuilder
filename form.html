@@ -1,3 +1,133 @@
+<!-- AI GENERATED -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Request Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
 <body>
-Works!
+    <h1>Content Request Form</h1>
+    <form id="contentRequestForm" action="/submit" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="base64avatar">Base64 Avatar:</label>
+        <textarea id="base64avatar" name="base64avatar"></textarea>
+
+        <label for="themeColor">Theme Color:</label>
+        <input type="text" id="themeColor" name="themeColor">
+
+        <label for="profession">Profession:</label>
+        <input type="text" id="profession" name="profession">
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address">
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+
+        <label for="linkedin">LinkedIn:</label>
+        <input type="text" id="linkedin" name="linkedin">
+
+        <label for="github">GitHub:</label>
+        <input type="text" id="github" name="github">
+
+        <label for="summary">Summary:</label>
+        <textarea id="summary" name="summary"></textarea>
+
+        <label for="skillList">Skills:</label>
+        <div id="skillListContainer">
+            <input type="text" name="skillList[]">
+        </div>
+        <button type="button" onclick="addSkill()">Add Skill</button>
+
+        <label for="languageList">Languages:</label>
+        <div id="languageListContainer">
+            <input type="text" name="languageList[]">
+        </div>
+        <button type="button" onclick="addLanguage()">Add Language</button>
+
+        <label for="workExperienceList">Work Experience:</label>
+        <div id="workExperienceListContainer">
+            <input type="text" name="workExperienceList[]">
+        </div>
+        <button type="button" onclick="addWorkExperience()">Add Work Experience</button>
+
+        <label for="educationList">Education:</label>
+        <div id="educationListContainer">
+            <input type="text" name="educationList[]">
+        </div>
+        <button type="button" onclick="addEducation()">Add Education</button>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function addSkill() {
+            const container = document.getElementById('skillListContainer');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'skillList[]';
+            container.appendChild(input);
+        }
+
+        function addLanguage() {
+            const container = document.getElementById('languageListContainer');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'languageList[]';
+            container.appendChild(input);
+        }
+
+        function addWorkExperience() {
+            const container = document.getElementById('workExperienceListContainer');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'workExperienceList[]';
+            container.appendChild(input);
+        }
+
+        function addEducation() {
+            const container = document.getElementById('educationListContainer');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'educationList[]';
+            container.appendChild(input);
+        }
+    </script>
 </body>
+</html>
