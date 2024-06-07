@@ -35,8 +35,14 @@ public class DocController : ControllerBase
     [HttpPost("Preview")]
     public IEnumerable<byte[]> PostPreview(ContentRequest content)
     {
+    try{
         QuestPdfContent c = new(content);
         Generator gen = new(c);
         return gen.GetImageBytes();
+    }
+    catch(Exception ex)
+    {
+         return ex.Message;
+    }
     }
 }
