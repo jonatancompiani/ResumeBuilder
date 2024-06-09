@@ -1,4 +1,4 @@
-var host = 'https://freeresumebuilder.azurewebsites.net';
+lvar host = 'https://freeresumebuilder.azurewebsites.net';
 
 document.getElementById('dataForm').addEventListener('submit', function(event) {
   event.preventDefault();
@@ -6,9 +6,9 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
   const Name = document.getElementById('name').value;
   const Email = document.getElementById('email').value;
 
-  const data = {
+  /*const data = {
     "Name": Name,
-    "Base64avatar": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=", // Placeholder, you may replace it with an actual base64 string
+    "Base64avatar": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=", // Placeholder, you may replace it with an actual base64 strinllg
     "ThemeColor": "#FFFFFF",
     "Profession": "Software Engineer",
     "Address": "123 Main St, City",
@@ -51,7 +51,12 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
         "Title": "High School Diploma"
       }
     ]
-  };
+  };*/
+
+const data = {
+    "Name": Name,
+    "Email": Email
+};
 
   fetch(host + '/Doc/Preview', {
     method: 'POST',
