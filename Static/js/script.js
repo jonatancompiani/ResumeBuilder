@@ -1,7 +1,7 @@
 var host = 'https://freeresumebuilder.azurewebsites.net/';
 
 
-const data = {
+const dataSample = {
     "Name": "John Doe",
     "Base64avatar": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=",
     "ThemeColor": "#FFFFFF",
@@ -65,7 +65,7 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
     const Email = document.getElementById('email').value;
   
     const data = { Name, Email };
-  
+  alert("foi");
     fetch(host + '/Doc/Preview', {
         method: 'POST',
         headers: {
