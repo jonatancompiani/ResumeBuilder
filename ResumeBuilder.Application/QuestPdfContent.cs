@@ -30,7 +30,7 @@ public class QuestPdfContent
         SetDefaults();
         Name = content.Name;
 
-        if (content.Base64avatar is not null)
+        if (!String.IsNullOrWhiteSpace(content.Base64avatar))
         {
             b64avatarImg = QuestPdfContentHelpers.Base64ToImage(content.Base64avatar);
         }
