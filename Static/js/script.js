@@ -59,6 +59,7 @@ const dataSample = {
   };
 
 document.getElementById('dataForm').addEventListener('submit', function(event) {
+document.getElementById('responseMessage').innerText = 'Data submitted successfully!';
     event.preventDefault();
   
     const Name = document.getElementById('name').value;
@@ -87,7 +88,7 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
             previewImg.src = 'data:image/png;base64,' + data[0];
             previewImg.height = window.screen.height * 0.6;
             document.body.appendChild(previewImg);
-      document.getElementById('responseMessage').innerText = 'Data submitted successfully!';
+      
     })
     .catch((error) => {
       console.error('Error:', error);
