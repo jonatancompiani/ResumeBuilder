@@ -65,7 +65,7 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
     const Email = document.getElementById('email').value;
   
     const data = { Name, Email };
-  alert("foi");
+  alert(JSON.stringify(data));
     fetch(host + '/Doc/Preview', {
         method: 'POST',
         headers: {
