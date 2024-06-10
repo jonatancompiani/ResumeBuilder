@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ResumeBuilder.Application;
 using ResumeBuilder.Domain.dto;
+using System.Text.Json;
 
 namespace ResumeBuilder.API.Controllers;
 
