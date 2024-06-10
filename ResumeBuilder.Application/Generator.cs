@@ -82,10 +82,12 @@ public class Generator
                                         e.Shrink()
                                         .Layers(layers =>
                                         {
+if(_content.b64avatarImg is not null){
                                             layers
                                             .PrimaryLayer()
                                                 .Image(_content.b64avatarImg)
                                                 .FitHeight();
+}
 
                                             layers.Layer().Canvas((canvas, size) =>
                                             {
