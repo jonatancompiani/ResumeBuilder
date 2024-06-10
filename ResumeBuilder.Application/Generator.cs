@@ -160,85 +160,102 @@ public class Generator
                                         c.RelativeColumn();
                                     });
 
-                                    contactTable.Cell()
-                                       .Row(1)
-                                       .Column(1)
-                                       .PaddingTop(10)
-                                       .Height(18)
-                                       .Image(_content.B64addressImg)
-                                       .FitHeight();
+                                    if (!string.IsNullOrEmpty(_content.Address))
+                                    {
+                                        contactTable.Cell()
+                                           .Row(1)
+                                           .Column(1)
+                                           .PaddingTop(10)
+                                           .Height(18)
+                                           .Image(_content.B64addressImg)
+                                           .FitHeight();
 
-                                    contactTable.Cell()
-                                       .Row(2)
-                                       .Column(1)
-                                       .PaddingTop(10)
-                                       .Height(18)
-                                       .Image(_content.B64phoneImg)
-                                       .FitHeight();
+                                        contactTable.Cell()
+                                            .Row(1)
+                                            .Column(2)
+                                            .PaddingTop(10)
+                                            .Text(_content.Address)
+                                            .FontSize(9)
+                                            .FontColor(_textColor);
+                                    }
 
-                                    contactTable.Cell()
-                                       .Row(3)
-                                       .Column(1)
-                                       .PaddingTop(10)
-                                       .Height(18)
-                                       .Image(_content.B64emailImg)
-                                       .FitHeight();
+                                    if (!string.IsNullOrEmpty(_content.Phone))
+                                    {
+                                        contactTable.Cell()
+                                           .Row(2)
+                                           .Column(1)
+                                           .PaddingTop(10)
+                                           .Height(18)
+                                           .Image(_content.B64phoneImg)
+                                           .FitHeight();
 
-                                    contactTable.Cell()
-                                       .Row(4)
-                                       .Column(1)
-                                       .PaddingTop(10)
-                                       .Height(18)
-                                       .Image(_content.B64linkedinImg)
-                                       .FitHeight();
+                                        contactTable.Cell()
+                                            .Row(2)
+                                            .Column(2)
+                                            .PaddingTop(10)
+                                            .Text(_content.Phone)
+                                            .FontSize(9)
+                                            .FontColor(_textColor);
+                                    }
 
-                                    contactTable.Cell()
-                                      .Row(5)
-                                      .Column(1)
-                                      .PaddingTop(10)
-                                      .Height(18)
-                                      .Image(_content.B64githubImg)
-                                      .FitHeight();
+                                    if (!string.IsNullOrEmpty(_content.Email))
+                                    {
+                                        contactTable.Cell()
+                                           .Row(3)
+                                           .Column(1)
+                                           .PaddingTop(10)
+                                           .Height(18)
+                                           .Image(_content.B64emailImg)
+                                           .FitHeight();
 
-                                    contactTable.Cell()
-                                        .Row(1)
-                                        .Column(2)
-                                        .PaddingTop(10)
-                                        .Text(_content.Address)
-                                        .FontSize(12)
-                                        .FontColor(_textColor);
+                                        contactTable.Cell()
+                                            .Row(3)
+                                            .Column(2)
+                                            .PaddingTop(10)
+                                            .Text(_content.Email)
+                                            .FontSize(9)
+                                            .FontColor(_textColor);
+                                    }
 
-                                    contactTable.Cell()
-                                        .Row(2)
-                                        .Column(2)
-                                        .PaddingTop(10)
-                                        .Text(_content.Phone)
-                                        .FontSize(12)
-                                        .FontColor(_textColor);
+                                    if (!string.IsNullOrEmpty(_content.Linkedin))
+                                    {
+                                        contactTable.Cell()
+                                           .Row(4)
+                                           .Column(1)
+                                           .PaddingTop(10)
+                                           .Height(18)
+                                           .Image(_content.B64linkedinImg)
+                                           .FitHeight();
 
-                                    contactTable.Cell()
-                                        .Row(3)
-                                        .Column(2)
-                                        .PaddingTop(10)
-                                        .Text(_content.Email)
-                                        .FontSize(12)
-                                        .FontColor(_textColor);
+                                        contactTable.Cell()
+                                            .Row(4)
+                                            .Column(2)
+                                            .PaddingTop(10)
+                                            .Text(_content.Linkedin)
+                                            .FontSize(9)
+                                            .FontColor(_textColor);
+                                    }
 
-                                    contactTable.Cell()
-                                        .Row(4)
-                                        .Column(2)
-                                        .PaddingTop(10)
-                                        .Text(_content.Linkedin)
-                                        .FontSize(12)
-                                        .FontColor(_textColor);
+                                    if (!string.IsNullOrEmpty(_content.Github))
+                                    {
+                                        contactTable.Cell()
+                                          .Row(5)
+                                          .Column(1)
+                                          .PaddingTop(10)
+                                          .Height(18)
+                                          .Image(_content.B64githubImg)
+                                          .FitHeight();
 
-                                    contactTable.Cell()
-                                        .Row(5)
-                                        .Column(2)
-                                        .PaddingTop(10)
-                                        .Text(_content.Github)
-                                        .FontSize(12)
-                                        .FontColor(_textColor);
+
+
+                                        contactTable.Cell()
+                                            .Row(5)
+                                            .Column(2)
+                                            .PaddingTop(10)
+                                            .Text(_content.Github)
+                                            .FontSize(9)
+                                            .FontColor(_textColor);
+                                    }
                                 });
 
                                 sidebar
