@@ -4,7 +4,13 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
   event.preventDefault();
 
   const Name = document.getElementById('name').value;
+  const Profession = document.getElementById('profession').value;
+  const Address = document.getElementById('address').value;
+  const Phone = document.getElementById('phone').value;
   const Email = document.getElementById('email').value;
+  const Linkedin = document.getElementById('linkedin').value;
+  const Github = document.getElementById('github').value;
+  const Summary = document.getElementById('summary').value;
 
   /*const data = {
     "Name": Name,
@@ -55,7 +61,13 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
 
 const data = {
     "Name": Name,
-    "Email": Email
+    "Profession": Profession,
+    "Address": Address,
+    "Phone": Phone,
+    "Email": Email,
+    "Linkedin": Linkedin,
+    "Github": Github,
+    "Summary": Summary
 };
 
 document.getElementById('loader-div').className = 'loader';
