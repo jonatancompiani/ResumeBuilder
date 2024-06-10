@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    label {
+      margin-top: 10px;
+    }
+
+    input,
+    textarea,
+    select {
+      margin-top: 5px;
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      flex: 1 1 48%; /* 48% width, two columns */
+      box-sizing: border-box;
+      margin: 5px;
+    }
+
+    .full-width {
+      flex: 1 1 100%;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #avatar {
+      padding-left: 0;
+    }
+
+    #avatarPreview {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Your Information</h1>
+  <form id="dataForm">
+
+
+
+    <div class="form-group">
+      <label for="avatar">Profile Picture:</label>
+      <input type="file" id="avatar" name="avatar" accept="image/*">
+      <img id="avatarPreview">
+    </div>
+
+
+    <div class="form-group">
+      <label for="themeColor">Theme Color:</label>
+      <select id="themeColor" name="themeColor" required>
+        <option value="#FFFFFF">White</option>
+        <option value="#000000">Black</option>
+        <option value="#3498db">Blue</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="profession">Profession:</label>
+      <input type="text" id="profession" name="profession" value="Software Engineer" required>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" value="123 Main St, City" required>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" value="123-456-7890" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="linkedin">LinkedIn:</label>
+      <input type="url" id="linkedin" name="linkedin" value="https://www.linkedin.com/in/johndoe" required>
+    </div>
+
+    <div class="form-group">
+      <label for="github">GitHub:</label>
+      <input type="url" id="github" name="github" value="https://github.com/johndoe" required>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="summary">Summary:</label>
+      <textarea id="summary" name="summary" rows="4"
+        required>Experienced software engineer with a passion for coding.</textarea>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="skills">Skills:</label>
+      <textarea id="skills" name="skills" rows="2" required>Java, Python, C#</textarea>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="languages">Languages:</label>
+      <textarea id="languages" name="languages" rows="3" required>
+English - Fluent
+Spanish - Intermediate
+      </textarea>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="workExperience">Work Experience:</label>
+      <textarea id="workExperience" name="workExperience" rows="4" required>
+Company: ABC Inc
+Role: Software Developer
+StartDate: 2018-01-01
+EndDate: 2022-12-31
+Description: Worked on various projects.
+
+Company: XYZ Corp
+Role: Senior Developer
+StartDate: 2023-01-01
+EndDate: Present
+Description: Leading a team of developers.
+      </textarea>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="education">Education:</label>
+      <textarea id="education" name="education" rows="3" required>
+Year: 2014-2018
+Institution: University of XYZ
+Title: Bachelor of Science in Computer Science
+Description: GPA: 3.8/4.0
+
+Year: 2009-2013
+Institution: High School ABC
+Title: High School Diploma
+      </textarea>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="responseMessage"></p>
+
+  <script>
+    document.getElementById('avatar').addEventListener('change', function (event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const preview = document.getElementById('avatarPreview');
+        preview.src = reader.result;
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    });
+  </script>
+</body>
+
+</html>
