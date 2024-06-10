@@ -1,4 +1,4 @@
-lvar host = 'https://freeresumebuilder.azurewebsites.net';
+var host = 'https://freeresumebuilder.azurewebsites.net';
 
 document.getElementById('dataForm').addEventListener('submit', function(event) {
   event.preventDefault();
