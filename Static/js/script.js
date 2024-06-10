@@ -58,6 +58,9 @@ const data = {
     "Email": Email
 };
 
+document.getElementById('loader-div').className = 'loader';
+document.getElementById('responseMessage').innerText = '';
+
   fetch(host + '/Doc/Preview', {
     method: 'POST',
     headers: {
@@ -67,7 +70,6 @@ const data = {
   })
   .then(response => response.json())
   .then(data => {
-    console.log(data);
 
     const elem = document.getElementById('imgPreview');
     if (elem) {
@@ -80,10 +82,13 @@ const data = {
       document.body.appendChild(previewImg);
     }
 
+    document.getElementById('loader-div').className = '';
     document.getElementById('responseMessage').innerText = 'Data submitted successfully!';
   })
   .catch((error) => {
     console.error('Error:', error);
+
+    document.getElementById('loader-div').className = '';
     document.getElementById('responseMessage').innerText = 'An error occurred. Please try again.';
   });
 });
