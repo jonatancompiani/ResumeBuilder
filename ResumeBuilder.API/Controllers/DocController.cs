@@ -42,7 +42,7 @@ public class DocController : ControllerBase
     }
     catch(Exception ex)
     {
-         return BadRequest(ex.Message);
+         return BadRequest(JsonSerializer.Serialize(ex));
     }
     }
 }
