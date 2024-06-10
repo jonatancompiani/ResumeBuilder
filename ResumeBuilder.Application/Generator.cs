@@ -79,30 +79,36 @@ public class Generator
                                     .AlignMiddle()
                                     .MaxHeight(120)
                                     .Element(e =>
-                                        e.Shrink()
-                                        .Layers(layers =>
+                                    {
+                                        var elem = e.Shrink();
+                                        if (_content.b64avatarImg is not null)
                                         {
-if(_content.b64avatarImg is not null){
-                                            layers
-                                            .PrimaryLayer()
-                                                .Image(_content.b64avatarImg)
-                                                .FitHeight();
-}
-
-                                            layers.Layer().Canvas((canvas, size) =>
+                                            elem.Layers(layers =>
                                             {
-                                                canvas.DrawRoundRect(-15, -15, 150, 150, 80, 80, new SKPaint
+
+                                                layers
+                                                .PrimaryLayer()
+                                                    .Image(_content.b64avatarImg)
+                                                    .FitHeight();
+
+
+                                                layers.Layer().Canvas((canvas, size) =>
                                                 {
-                                                    Color = SKColor.Parse(_primaryColor),
-                                                    IsStroke = true,
-                                                    StrokeWidth = 30,
-                                                    IsAntialias = true
+                                                    canvas.DrawRoundRect(-15, -15, 150, 150, 80, 80, new SKPaint
+                                                    {
+                                                        Color = SKColor.Parse(_primaryColor),
+                                                        IsStroke = true,
+                                                        StrokeWidth = 30,
+                                                        IsAntialias = true
+                                                    });
+
                                                 });
 
+
                                             });
-
-
-                                        }));
+                                        }
+                                        }
+                                        );
 
                                 sidebar.Cell().Row(2).ShowOnce().Element(container => container
                                     .AlignCenter()
@@ -256,7 +262,7 @@ if(_content.b64avatarImg is not null){
                                     .ShowOnce()
                                     .Column(skills =>
                                     {
-                                        foreach (var skill in _content.SkillList)
+                                        foreach (var skill in _content.SkillList ?? [])
                                         {
                                             skills.Item().PaddingTop(5).Row(row =>
                                             {
@@ -287,7 +293,7 @@ if(_content.b64avatarImg is not null){
                                 {
                                     langTable.ColumnsDefinition(column => column.RelativeColumn());
 
-                                    foreach (var language in _content.LanguageList)
+                                    foreach (var language in _content.LanguageList ?? [])
                                     {
                                         langTable.Cell().PaddingTop(8).Table(x =>
                                         {
@@ -340,7 +346,7 @@ if(_content.b64avatarImg is not null){
                                 {
                                     xpTable.ColumnsDefinition(column => column.RelativeColumn());
 
-                                    foreach (var wex in _content.WorkExperienceList)
+                                    foreach (var wex in _content.WorkExperienceList ?? [])
                                     {
                                         xpTable.Cell().ShowEntire().Table(x =>
                                         {
@@ -366,7 +372,7 @@ if(_content.b64avatarImg is not null){
                                 {
                                     xpTable.ColumnsDefinition(column => column.RelativeColumn());
 
-                                    foreach (var edu in _content.EducationList)
+                                    foreach (var edu in _content.EducationList ?? [])
                                     {
                                         xpTable.Cell().ShowEntire().Table(x =>
                                         {
