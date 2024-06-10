@@ -43,7 +43,7 @@ public class DocController : ControllerBase
     }
     catch(Exception ex)
     {
-         return BadRequest(JsonSerializer.Serialize(ex));
+         return BadRequest($"Message: {ex.Message}\nInner: {ex.InnerException?.Message}\nStackTrace: {ex.StackTrace}");
     }
     }
 }
