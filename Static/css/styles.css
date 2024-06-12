@@ -1,72 +1,128 @@
+/* css/styles.css */
 body {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f9fc;
+  color: #333;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  color: #4a90e2;
+  margin-bottom: 20px;
+}
+
+form {
+  background: #fff;
+  padding: 30px; 
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: grid;
+  column-gap: 25px;
+  row-gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="url"],
+textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  min-width: 300px;
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+textarea:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  grid-column: span 2;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #357ab7;
+}
+
+@media (max-width: 600px) {
   form {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  label {
-    margin-top: 10px;
-  }
-  
-  #responseMessage {
-    margin-top: 20px;
-    font-weight: bold;
-  }
-
-  input,
-  textarea,
-  select {
-    margin-top: 5px;
-    padding: 10px;
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .form-group {
-    margin-bottom: 15px;
-    flex: 1 1 48%; /* 48% width, two columns */
-    box-sizing: border-box;
-    margin: 5px;
+    grid-template-columns: 1fr;
   }
 
   button {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
+    grid-column: span 1;
   }
+}
 
-  button:hover {
-    background-color: #2980b9;
-  }
+#responseMessage
+{
+  grid-column: span 2;
+}
 
-  .full-width {
-    flex: 1 1 100%;
-  }
+.loader-host{
+  grid-column: span 2; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center
+}
+.loader {
 
-  .loader {
-    border: 6px solid #f3f3f3; /* Light grey */
-    border-top: 6px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-
-    margin: 0 auto;
-  }
+  border: 6px solid #f3f3f3; /* Light grey */
+  border-top: 6px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
   
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
