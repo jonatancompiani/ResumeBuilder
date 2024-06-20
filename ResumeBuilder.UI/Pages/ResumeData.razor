@@ -1,0 +1,25 @@
+﻿@page "/resumeData"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject HttpClient httpClient
+
+<PageTitle>Resume Data</PageTitle>
+
+<h1>Resume Data</h1>
+
+<select class="form-select form-select-lg mb-3" aria-label="Default select example">
+    <option selected>Open this select menu</option>
+    @foreach (var color in colors ?? [])
+    {
+        <option value="1" style="background-color: @color">One</option>
+    }
+</select>
+
+@code {
+    public string[]? colors = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        colors = await httpClient.GetFromJsonAsync<string[]>("Doc/colors");
+    }
+}

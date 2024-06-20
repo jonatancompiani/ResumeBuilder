@@ -125,3 +125,30 @@ function previewPdf(color) {
       alert(err);
     });
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+  const textInput = document.getElementById("textInput");
+  const chipsContainer = document.getElementById("chipsContainer");
+
+  textInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter" && textInput.value.trim() !== "") {
+      const chipText = textInput.value.trim();
+
+      // Create chip element
+      const chip = document.createElement("div");
+      chip.classList.add("chip");
+      chip.textContent = chipText;
+
+      // Add click event listener to remove chip
+      chip.addEventListener("click", function() {
+        chipsContainer.removeChild(chip);
+      });
+
+      // Append chip to container
+      chipsContainer.appendChild(chip);
+
+      // Clear input
+      textInput.value = "";
+    }
+  });
+});
