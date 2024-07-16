@@ -7,7 +7,7 @@ After filling you information, it will let you choose one of the available color
 :construction: Work in progress :construction:
 
 [![Backend Deploy](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/azure-webapps-dotnet-core.yml/badge.svg)](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/azure-webapps-dotnet-core.yml)
-[![pages-build-deployment](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/pages/pages-build-deployment/badge.svg?branch=master)](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/pages/pages-build-deployment)
+[![Pages Build and Deploy](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/deploy.yml/badge.svg)](https://github.com/jonatancompiani/ResumeBuilder/actions/workflows/deploy.yml)
 
 Demo
 https://jonatancompiani.github.io/ResumeBuilder/
