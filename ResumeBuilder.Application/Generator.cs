@@ -306,7 +306,7 @@ public class Generator
 
                                 sidebar.Cell().Row(11).ShowOnce().LineHorizontal(1).LineColor(_textColor);
 
-                                sidebar.Cell().Row(12).Table(langTable =>
+                                sidebar.Cell().Row(12).ShowOnce().Table(langTable =>
                                 {
                                     langTable.ColumnsDefinition(column => column.RelativeColumn());
 
