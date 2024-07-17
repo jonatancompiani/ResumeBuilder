@@ -231,7 +231,8 @@ public class Generator
                                             .Row(4)
                                             .Column(2)
                                             .PaddingTop(10)
-                                            .Text(_content.Linkedin)
+                                            .Hyperlink($"https://linkedin.com/in/{_content.Linkedin}")
+                                            .Text($"linkedin.com/in/{_content.Linkedin}")
                                             .FontSize(9)
                                             .FontColor(_textColor);
                                     }
@@ -252,7 +253,8 @@ public class Generator
                                             .Row(5)
                                             .Column(2)
                                             .PaddingTop(10)
-                                            .Text(_content.Github)
+                                            .Hyperlink($"https://github.com/{_content.Github}")
+                                            .Text($"github.com/{_content.Github}")
                                             .FontSize(9)
                                             .FontColor(_textColor);
                                     }
@@ -368,7 +370,7 @@ public class Generator
                                         xpTable.Cell().ShowEntire().Table(x =>
                                         {
                                             x.ColumnsDefinition(column => column.RelativeColumn());
-                                            x.Cell().Row(1).PaddingTop(10).Text($"{wex.StartDate} - {wex.EndDate}").Thin().FontSize(9);
+                                            x.Cell().Row(1).PaddingTop(10).Text($"{wex.StartDate} - {wex.EndDate}").Thin().FontSize(8);
                                             x.Cell().Row(2).Text(wex.Role).Bold();
                                             x.Cell().Row(3).Text(wex.Company).Light();
                                             x.Cell().Row(4).Text(wex.Description);
@@ -385,16 +387,16 @@ public class Generator
                                     );
                                 body.Cell().Row(7).ShowOnce().LineHorizontal(1).LineColor(_primaryColor);
 
-                                body.Cell().Row(8).Table(xpTable =>
+                                body.Cell().Row(8).Table(educationTable =>
                                 {
-                                    xpTable.ColumnsDefinition(column => column.RelativeColumn());
+                                    educationTable.ColumnsDefinition(column => column.RelativeColumn());
 
                                     foreach (var edu in _content.EducationList ?? [])
                                     {
-                                        xpTable.Cell().ShowEntire().Table(x =>
+                                        educationTable.Cell().ShowEntire().Table(x =>
                                         {
                                             x.ColumnsDefinition(column => column.RelativeColumn());
-                                            x.Cell().Row(1).PaddingTop(10).Text(edu.Year).Thin().FontSize(9);
+                                            x.Cell().Row(1).PaddingTop(10).Text(edu.Year).Thin().FontSize(8);
                                             x.Cell().Row(2).Text(edu.Title).Bold();
                                             x.Cell().Row(3).Text(edu.Institution).Light();
                                             x.Cell().Row(4).Text(edu.Description);

@@ -13,7 +13,7 @@ public class DocController : ControllerBase
 
     [HttpGet("ExampleDownload")]
     [Tags("Example")]
-    public byte[] Get(string color)
+    public byte[] Get(string? color)
     {
         Generator gen = new(new(color));
         return gen.GetFileBytes();
@@ -27,7 +27,7 @@ public class DocController : ControllerBase
 
     [HttpGet("ExamplePreview")]
     [Tags("Example")]
-    public IEnumerable<byte[]> GetPreview(string color)
+    public IEnumerable<byte[]> GetPreview(string? color)
     {
         Generator gen = new(new(color));
         return gen.GetImageBytes();
