@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ResumeBuilder.Application;
 using ResumeBuilder.Domain.dto;
-using System.Text.Json;
 
 namespace ResumeBuilder.API.Controllers;
 
@@ -12,13 +11,12 @@ public class DocController : ControllerBase
     public DocController() { }
 
     [HttpGet("ExampleDownload")]
-    [Tags("Example")]
     public byte[] Get(string color)
     {
         Generator gen = new(new(color));
         return gen.GetFileBytes();
     }
-
+    
     [HttpGet("Colors")]
     public IEnumerable<string> GetColors()
     {
@@ -36,14 +34,31 @@ public class DocController : ControllerBase
     [HttpPost("Preview")]
     public ActionResult PostPreview(ContentRequest content)
     {
-    try{
-        QuestPdfContent c = new(content);
-        Generator gen = new(c);
-        return Ok(gen.GetImageBytes());
+        try
+        {
+            QuestPdfContent c = new(content);
+            Generator gen = new(c);
+            return Ok(gen.GetImageBytes());
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Message: {ex.Message}\nInner: {ex.InnerException?.Message}\nStackTrace: {ex.StackTrace}");
+        }
     }
-    catch(Exception ex)
+
+
+    [HttpPost("Download")]
+    public ActionResult PostDownload(ContentRequest content)
     {
-         return BadRequest($"Message: {ex.Message}\nInner: {ex.InnerException?.Message}\nStackTrace: {ex.StackTrace}");
-    }
+        try
+        {
+            QuestPdfContent c = new(content);
+            Generator gen = new(c);
+            return Ok(gen.GetFileBytes());
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Message: {ex.Message}\nInner: {ex.InnerException?.Message}\nStackTrace: {ex.StackTrace}");
+        }
     }
 }
