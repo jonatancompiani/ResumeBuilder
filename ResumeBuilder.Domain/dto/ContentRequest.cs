@@ -14,4 +14,4 @@ public record ContentRequest(
     List<string>? SkillList,
     List<Language>? LanguageList,
     List<WorkExperience>? WorkExperienceList,
-    List<Edcation>? EducationList);
+    List<Education>? EducationList);

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using ResumeBuilder.Application;
+using ResumeBuilder.Application; // Ensures all interface usings are covered
 using ResumeBuilder.Domain.dto;
+using System; // For Exception
+using System.Collections.Generic; // For IEnumerable
 
 namespace ResumeBuilder.API.Controllers;
 
@@ -8,37 +10,32 @@ namespace ResumeBuilder.API.Controllers;
 [Route("[controller]")]
 public class DocController : ControllerBase
 {
-    public DocController() { }
+    private readonly IResumeDataProvider _resumeDataProvider;
+    private readonly IPdfGenerator _pdfGenerator;
+    private readonly IImageGenerator _imageGenerator;
+    private readonly IColorService _colorService;
+
+    public DocController(
+        IResumeDataProvider resumeDataProvider,
+        IPdfGenerator pdfGenerator,
+        IImageGenerator imageGenerator,
+        IColorService colorService)
+    {
+        _resumeDataProvider = resumeDataProvider;
+        _pdfGenerator = pdfGenerator;
+        _imageGenerator = imageGenerator;
+        _colorService = colorService;
+    }
 
     [HttpGet("ExampleDownload")]
-    public byte[] Get(string color)
-    {
-        Generator gen = new(new(color));
-        return gen.GetFileBytes();
-    }
-    
-    [HttpGet("Colors")]
-    public IEnumerable<string> GetColors()
-    {
-        return Generator.GetAvailableColors();
-    }
-
-    [HttpGet("ExamplePreview")]
-    [Tags("Example")]
-    public IEnumerable<byte[]> GetPreview(string color)
-    {
-        Generator gen = new(new(color));
-        return gen.GetImageBytes();
-    }
-
-    [HttpPost("Preview")]
-    public ActionResult PostPreview(ContentRequest content)
+    public IActionResult Get(string color) // Changed return type to IActionResult
     {
         try
         {
-            QuestPdfContent c = new(content);
-            Generator gen = new(c);
-            return Ok(gen.GetImageBytes());
+            var resumeData = _resumeDataProvider.CreateWithColor(color);
+            var pdfBytes = _pdfGenerator.GeneratePdf(resumeData);
+            // Consider returning File(pdfBytes, "application/pdf", "resume.pdf"); for better browser handling
+            return Ok(pdfBytes);
         }
         catch (Exception ex)
         {
@@ -46,15 +43,52 @@ public class DocController : ControllerBase
         }
     }
 
+    [HttpGet("Colors")]
+    public IEnumerable<string> GetColors()
+    {
+        return _colorService.GetAvailableColors();
+    }
+
+    [HttpGet("ExamplePreview")]
+    [Tags("Example")]
+    public ActionResult GetPreview(string color) // Changed to ActionResult
+    {
+        try
+        {
+            var resumeData = _resumeDataProvider.CreateWithColor(color);
+            var imageBytes = _imageGenerator.GenerateImages(resumeData);
+            return Ok(imageBytes);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Message: {ex.Message}\nInner: {ex.InnerException?.Message}\nStackTrace: {ex.StackTrace}");
+        }
+    }
+
+    [HttpPost("Preview")]
+    public ActionResult PostPreview(ContentRequest content)
+    {
+        try
+        {
+            var resumeData = _resumeDataProvider.CreateFromRequest(content);
+            var imageBytes = _imageGenerator.GenerateImages(resumeData);
+            return Ok(imageBytes);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Message: {ex.Message}\nInner: {ex.InnerException?.Message}\nStackTrace: {ex.StackTrace}");
+        }
+    }
 
     [HttpPost("Download")]
     public ActionResult PostDownload(ContentRequest content)
     {
         try
         {
-            QuestPdfContent c = new(content);
-            Generator gen = new(c);
-            return Ok(gen.GetFileBytes());
+            var resumeData = _resumeDataProvider.CreateFromRequest(content);
+            var pdfBytes = _pdfGenerator.GeneratePdf(resumeData);
+            // Consider returning File(pdfBytes, "application/pdf", "resume.pdf");
+            return Ok(pdfBytes);
         }
         catch (Exception ex)
         {

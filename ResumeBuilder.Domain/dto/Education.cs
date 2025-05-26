@@ -1,6 +1,6 @@
 ﻿namespace ResumeBuilder.Domain.dto;
 
-public class Edcation
+public class Education
 {
     public string? Year { get; set; }
     public string? Institution { get; set; }
