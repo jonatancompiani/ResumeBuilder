@@ -2,7 +2,7 @@
 using QuestPDF.Infrastructure;
 using ResumeBuilder.Domain;
 
-internal static class QuestPdfContentHelpers
+public static class QuestPdfContentHelpers
 {
 
     public static Dictionary<Theme, string> ThemeColors =
