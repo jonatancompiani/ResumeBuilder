@@ -144,20 +144,20 @@ The `DocController` exposes several endpoints for generating resumes and retriev
 *   **Mermaid Diagram:**
     ```mermaid
     graph TD
-        A[Start: CreateFromRequest] --> B{request.Base64avatar not empty?};
-        B -- Yes --> C[Convert Base64avatar to Image];
-        C --> D[Set resumeData.AvatarImage];
-        B -- No --> D;
-        D --> E{request.ThemeColor valid?};
-        E -- Yes --> F[Set resumeData.PrimaryColor = request.ThemeColor];
-        F --> G[Map direct fields from request to resumeData];
-        E -- No --> H[Set resumeData.PrimaryColor = Default Blue];
-        H --> G;
-        G --> I[Set default TextColor (White)];
-        I --> J[Set default Headers (e.g., "Contact", "Skills")];
-        J --> K[Load all Icons from Base64Constants];
-        K --> L[Return resumeData];
-        L --> M[End];
+        cfrA["Start: CreateFromRequest"] --> cfrB{"request.Base64avatar not empty?"};
+        cfrB -- Yes --> cfrC["Convert Base64avatar to Image"];
+        cfrC --> cfrD["Set resumeData.AvatarImage"];
+        cfrB -- No --> cfrD;
+        cfrD --> cfrE{"request.ThemeColor valid?"};
+        cfrE -- Yes --> cfrF["Set resumeData.PrimaryColor = request.ThemeColor"];
+        cfrF --> cfrG["Map direct fields from request to resumeData"];
+        cfrE -- No --> cfrH["Set resumeData.PrimaryColor = Default Blue"];
+        cfrH --> cfrG;
+        cfrG --> cfrI["Set default TextColor - White"];
+        cfrI --> cfrJ["Set default Headers - e.g. Contact, Skills"];
+        cfrJ --> cfrK["Load all Icons from Base64Constants"];
+        cfrK --> cfrL["Return resumeData"];
+        cfrL --> cfrM["End"];
     ```
 
 ### 4.2. Method: `ResumeData CreateExample()`
@@ -169,16 +169,16 @@ The `DocController` exposes several endpoints for generating resumes and retriev
 *   **Mermaid Diagram:**
     ```mermaid
     graph TD
-        A[Start: CreateExample] --> B[Initialize TextInfo for "en-US"];
-        B --> C[Set Name to "john doe", then TitleCase to "John Doe"];
-        C --> D[Populate resumeData fields with example strings and lists];
-        D --> E[Load AvatarImage from Base64Constants];
-        E --> F[Load all Icons from Base64Constants];
-        F --> G[Set PrimaryColor = Default Blue];
-        G --> H[Set TextColor = White];
-        H --> I[Set default Header texts];
-        I --> J[Return resumeData];
-        J --> K[End];
+        ceA["Start: CreateExample"] --> ceB["Initialize TextInfo for en-US"];
+        ceB --> ceC["Set Name to john doe, then TitleCase to John Doe"];
+        ceC --> ceD["Populate resumeData fields with example strings and lists"];
+        ceD --> ceE["Load AvatarImage from Base64Constants"];
+        ceE --> ceF["Load all Icons from Base64Constants"];
+        ceF --> ceG["Set PrimaryColor = Default Blue"];
+        ceG --> ceH["Set TextColor = White"];
+        ceH --> ceI["Set default Header texts"];
+        ceI --> ceJ["Return resumeData"];
+        ceJ --> ceK["End"];
     ```
 
 ### 4.3. Method: `ResumeData CreateWithColor(string color)`
@@ -190,13 +190,13 @@ The `DocController` exposes several endpoints for generating resumes and retriev
 *   **Mermaid Diagram:**
     ```mermaid
     graph TD
-        A[Start: CreateWithColor] --> B[Call CreateExample() to get base resumeData];
-        B --> C{Input 'color' valid & available?};
-        C -- Yes --> D[Set resumeData.PrimaryColor = input 'color'];
-        D --> E[Return resumeData];
-        C -- No --> F[resumeData.PrimaryColor remains Default Blue from CreateExample()];
-        F --> E;
-        E --> G[End];
+        cwcA["Start: CreateWithColor"] --> cwcB["Call CreateExample() to get base resumeData"];
+        cwcB --> cwcC{"Input 'color' valid & available?"};
+        cwcC -- Yes --> cwcD["Set resumeData.PrimaryColor = input color"];
+        cwcD --> cwcE["Return resumeData"];
+        cwcC -- No --> cwcF["resumeData.PrimaryColor remains Default Blue from CreateExample()"];
+        cwcF --> cwcE;
+        cwcE --> cwcG["End"];
     ```
 
 ### 4.4. Method: `IEnumerable<string> GetAvailableColors()`
@@ -206,9 +206,9 @@ The `DocController` exposes several endpoints for generating resumes and retriev
 *   **Mermaid Diagram:**
     ```mermaid
     graph TD
-        A[Start: GetAvailableColors] --> B[Access QuestPdfContentHelpers.ThemeColors.Values];
-        B --> C[Return list of color strings];
-        C --> D[End];
+        gacA["Start: GetAvailableColors"] --> gacB["Access QuestPdfContentHelpers.ThemeColors.Values"];
+        gacB --> gacC["Return list of color strings"];
+        gacC --> gacD["End"];
     ```
 
 ## 5. Document Generation Logic (`QuestPdfDocumentGenerator.cs`)
@@ -237,11 +237,11 @@ The `GenerateDocument` method defines the resume's layout.
     *   **Mermaid (Avatar Logic):**
         ```mermaid
         graph TD
-            A_Avatar[Start Avatar] --> B_HasAvatar{resumeData.AvatarImage is not null?};
-            B_HasAvatar -- Yes --> C_ShowImage[Display AvatarImage];
-            C_ShowImage --> D_DrawBorder[Draw Circular Border (Color: PrimaryColor)];
-            D_DrawBorder --> E_EndAvatar[End Avatar];
-            B_HasAvatar -- No --> E_EndAvatar;
+            avA["Start Avatar"] --> avB{"resumeData.AvatarImage is not null?"};
+            avB -- Yes --> avC["Display AvatarImage"];
+            avC --> avD["Draw Circular Border - Color PrimaryColor"];
+            avD --> avE["End Avatar"];
+            avB -- No --> avE;
         ```
 
     #### 5.2.2. Name Section
@@ -266,11 +266,11 @@ The `GenerateDocument` method defines the resume's layout.
     *   **Mermaid (Generic Contact Item Logic):**
         ```mermaid
         graph TD
-            F_ContactItem[Start Contact Item (e.g. Address)] --> G_HasData{resumeData.Address not empty?};
-            G_HasData -- Yes --> H_ShowIcon[Display AddressIcon];
-            H_ShowIcon --> I_ShowText[Display Address Text];
-            I_ShowText --> J_NextContact[Next Contact Item or End];
-            G_HasData -- No --> J_NextContact;
+            ciA["Start Contact Item - e.g. Address"] --> ciB{"resumeData.Address not empty?"};
+            ciB -- Yes --> ciC["Display AddressIcon"];
+            ciC --> ciD["Display Address Text"];
+            ciD --> ciE["Next Contact Item or End"];
+            ciB -- No --> ciE;
         ```
 
     #### 5.2.6. Skills Header Section
@@ -286,15 +286,15 @@ The `GenerateDocument` method defines the resume's layout.
     *   **Mermaid (Skills List Logic):**
         ```mermaid
         graph TD
-            K_Skills[Start Skills] --> L_NullCheck{resumeData.SkillList is null?};
-            L_NullCheck -- Yes --> M_EmptyList[Use Empty List];
-            M_EmptyList --> N_Loop;
-            L_NullCheck -- No --> N_Loop[Use resumeData.SkillList];
-            N_Loop --> O_ForEachSkill[For each skill];
-            O_ForEachSkill -- Loop Item --> P_ShowBullet[Display Bullet];
-            P_ShowBullet --> Q_ShowSkill[Display Skill Text];
-            Q_ShowSkill --> O_ForEachSkill;
-            O_ForEachSkill -- Loop End --> S_EndSkills[End Skills];
+            slA["Start Skills"] --> slB{"resumeData.SkillList is null?"};
+            slB -- Yes --> slC["Use Empty List"];
+            slC --> slD;
+            slB -- No --> slD["Use resumeData.SkillList"];
+            slD --> slE["For each skill in list"];
+            slE -- Loop Item --> slF["Display Bullet"];
+            slF --> slG["Display Skill Text"];
+            slG --> slE;
+            slE -- Loop End --> slH["End Skills"];
         ```
 
     #### 5.2.8. Languages Header Section
@@ -310,15 +310,15 @@ The `GenerateDocument` method defines the resume's layout.
     *   **Mermaid (Languages List Logic):**
         ```mermaid
         graph TD
-            T_Lang[Start Languages] --> U_LangNull{resumeData.LanguageList is null?};
-            U_LangNull -- Yes --> V_LangEmpty[Use Empty List];
-            V_LangEmpty --> W_LangLoop;
-            U_LangNull -- No --> W_LangLoop[Use resumeData.LanguageList];
-            W_LangLoop --> X_ForEachLang[For each language];
-            X_ForEachLang -- Loop Item --> Y_ShowName[Display Language Name with Bullet];
-            Y_ShowName --> Z_ShowLevel[Display Language Level (indented)];
-            Z_ShowLevel --> X_ForEachLang;
-            X_ForEachLang -- Loop End --> AB_EndLang[End Languages];
+            llA["Start Languages"] --> llB{"resumeData.LanguageList is null?"};
+            llB -- Yes --> llC["Use Empty List"];
+            llC --> llD;
+            llB -- No --> llD["Use resumeData.LanguageList"];
+            llD --> llE["For each language in list"];
+            llE -- Loop Item --> llF["Display Language Name with Bullet"];
+            llF --> llG["Display Language Level - indented"];
+            llG --> llE;
+            llE -- Loop End --> llH["End Languages"];
         ```
 
 ### 5.3. Main Content (Right Column)
@@ -336,23 +336,23 @@ The `GenerateDocument` method defines the resume's layout.
     *   Followed by a horizontal line (Color: `resumeData.PrimaryColor`).
     *   **Looping Rule (WorkExperienceList):** For each `wex` in `resumeData.WorkExperienceList` (or empty list if null):
         *   Display `wex.Year` (Thin, Font Size 9).
-        *   Display `wex.JobTitle` (Bold).
-        *   Display `wex.Company` (Light).
+        *   Display `wex.JobTitle` - Bold.
+        *   Display `wex.Company` - Light.
         *   Display `wex.Description`.
     *   **Mermaid (Work Experience Logic):**
         ```mermaid
         graph TD
-            AC_Exp[Start Experience] --> AD_ExpNull{resumeData.WorkExperienceList is null?};
-            AD_ExpNull -- Yes --> AE_ExpEmpty[Use Empty List];
-            AE_ExpEmpty --> AF_ExpLoop;
-            AD_ExpNull -- No --> AF_ExpLoop[Use resumeData.WorkExperienceList];
-            AF_ExpLoop --> AG_ForEachWex[For each wex];
-            AG_ForEachWex -- Loop Item --> AH_WexYear[Display Year];
-            AH_WexYear --> AI_WexTitle[Display JobTitle (Bold)];
-            AI_WexTitle --> AJ_WexCo[Display Company (Light)];
-            AJ_WexCo --> AK_WexDesc[Display Description];
-            AK_WexDesc --> AG_ForEachWex;
-            AG_ForEachWex -- Loop End --> AM_EndExp[End Experience];
+            weA["Start Experience"] --> weB{"resumeData.WorkExperienceList is null?"};
+            weB -- Yes --> weC["Use Empty List"];
+            weC --> weD;
+            weB -- No --> weD["Use resumeData.WorkExperienceList"];
+            weD --> weE["For each wex in list"];
+            weE -- Loop Item --> weF["Display Year"];
+            weF --> weG["Display JobTitle - Bold"];
+            weG --> weH["Display Company - Light"];
+            weH --> weI["Display Description"];
+            weI --> weE;
+            weE -- Loop End --> weJ["End Experience"];
         ```
 
     #### 5.3.3. Education Section
@@ -360,23 +360,23 @@ The `GenerateDocument` method defines the resume's layout.
     *   Followed by a horizontal line (Color: `resumeData.PrimaryColor`).
     *   **Looping Rule (EducationList):** For each `edu` in `resumeData.EducationList` (or empty list if null):
         *   Display `edu.Year` (Thin, Font Size 9).
-        *   Display `edu.Title` (Bold).
-        *   Display `edu.Institution` (Light).
+        *   Display `edu.Title` - Bold.
+        *   Display `edu.Institution` - Light.
         *   Display `edu.Description`.
     *   **Mermaid (Education Logic):**
         ```mermaid
         graph TD
-            AN_Edu[Start Education] --> AO_EduNull{resumeData.EducationList is null?};
-            AO_EduNull -- Yes --> AP_EduEmpty[Use Empty List];
-            AP_EduEmpty --> AQ_EduLoop;
-            AO_EduNull -- No --> AQ_EduLoop[Use resumeData.EducationList];
-            AQ_EduLoop --> AR_ForEachEdu[For each edu];
-            AR_ForEachEdu -- Loop Item --> AS_EduYear[Display Year];
-            AS_EduYear --> AT_EduTitle[Display Title (Bold)];
-            AT_EduTitle --> AU_EduInst[Display Institution (Light)];
-            AU_EduInst --> AV_EduDesc[Display Description];
-            AV_EduDesc --> AR_ForEachEdu;
-            AR_ForEachEdu -- Loop End --> AW_EndEdu[End Education];
+            edA["Start Education"] --> edB{"resumeData.EducationList is null?"};
+            edB -- Yes --> edC["Use Empty List"];
+            edC --> edD;
+            edB -- No --> edD["Use resumeData.EducationList"];
+            edD --> edE["For each edu in list"];
+            edE -- Loop Item --> edF["Display Year"];
+            edF --> edG["Display Title - Bold"];
+            edG --> edH["Display Institution - Light"];
+            edH --> edI["Display Description"];
+            edI --> edE;
+            edE -- Loop End --> edJ["End Education"];
         ```
 
 ## 6. Output Generation (`PdfGenerator.cs` & `ImageGenerator.cs`)
@@ -428,5 +428,3 @@ The `GenerateDocument` method defines the resume's layout.
 ## 7. Helper Utilities (`QuestPdfContentHelpers.cs`)
 *   **`ThemeColors` (Dictionary):** Stores predefined theme names (enum `Theme`) and their corresponding QuestPDF color string values (e.g., `Colors.Blue.Darken4`). Used by `ResumeContentService` for color validation and selection.
 *   **`Base64ToImage(string base64String)` (static method):** Converts a Base64 encoded string into a QuestPDF `Image` object. Used by `ResumeContentService` for avatar and icon images.
-
-```
