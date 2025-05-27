@@ -3,7 +3,7 @@
 The `DocController` exposes several endpoints for generating resumes and retrieving related information.
 
 **Overall Controller Business Rules:**
-*   **Dependency Injection:** The controller utilizes `IResumeDataProvider`, `IPdfGenerator`, `IImageGenerator`, and `IColorService`, which are injected via its constructor.
+*   **Dependency Injection:** The controller utilizes [`IResumeDataProvider`](../ApplicationServices/ResumeContentService.md), [`IPdfGenerator`](../ApplicationServices/OutputGenerators.md#61-pdfgeneratorcs---method-byte-generatepdfresumedata-resumedata), [`IImageGenerator`](../ApplicationServices/OutputGenerators.md#62-imagegeneratorcs---method-ienumerablebyte-generateimagesresumedata-resumedata), and [`IColorService`](../ApplicationServices/ResumeContentService.md#44-method-ienumerablestring-getavailablecolors), which are injected via its constructor.
 *   **Error Handling:** Endpoints performing operations that might fail are wrapped in `try-catch` blocks.
     *   **Rule:** If an exception occurs, the API returns an HTTP 400 BadRequest.
     *   **Rule:** The error message in the BadRequest includes the exception message, inner exception message (if any), and stack trace. (Note: Exposing stack traces in production responses is generally discouraged).
@@ -71,7 +71,7 @@ The `DocController` exposes several endpoints for generating resumes and retriev
 
 ### 3.4. `POST /Doc/Preview`
 *   **Purpose:** Generates and returns image(s) of a resume based on user-provided data in the request body.
-*   **Parameters:** `content` (`ContentRequest` object, from request body).
+*   **Parameters:** `content` ([`ContentRequest`](../DataModels/ResumeData_And_ContentRequest.md#contentrequest-dto) object, from request body).
 *   **Flow Description:** The controller calls `IResumeDataProvider.CreateFromRequest(content)` for `ResumeData`, then `IImageGenerator.GenerateImages(resumeData)` for image bytes, returned in an HTTP 200 OK response.
 *   **Mermaid Diagram:**
     ```mermaid
@@ -92,7 +92,7 @@ The `DocController` exposes several endpoints for generating resumes and retriev
 
 ### 3.5. `POST /Doc/Download`
 *   **Purpose:** Generates and allows downloading of a PDF resume based on user-provided data.
-*   **Parameters:** `content` (`ContentRequest` object, from request body).
+*   **Parameters:** `content` ([`ContentRequest`](../DataModels/ResumeData_And_ContentRequest.md#contentrequest-dto) object, from request body).
 *   **Flow Description:** The controller calls `IResumeDataProvider.CreateFromRequest(content)` for `ResumeData`, then `IPdfGenerator.GeneratePdf(resumeData)` for PDF bytes, returned in an HTTP 200 OK response.
 *   **Mermaid Diagram:**
     ```mermaid

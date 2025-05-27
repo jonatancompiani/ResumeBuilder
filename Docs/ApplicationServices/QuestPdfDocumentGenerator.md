@@ -1,9 +1,11 @@
 # Document Generation Logic (`QuestPdfDocumentGenerator.cs`)
 
-The `QuestPdfDocumentGenerator` class implements `IQuestPdfDocumentGenerator` and is responsible for defining the detailed visual structure and content layout of the resume document using the QuestPDF library. Its main method is `GenerateDocument(ResumeData resumeData)`.
+The `QuestPdfDocumentGenerator` class implements [`IQuestPdfDocumentGenerator`](../CoreComponents.md#iquestpdfdocumentgenerator-implemented-by-questpdfdocumentgenerator) and is responsible for defining the detailed visual structure and content layout of the resume document using the QuestPDF library. Its main method is `GenerateDocument(ResumeData resumeData)` (takes a [`ResumeData`](../DataModels/ResumeData_And_ContentRequest.md#resumedata-domain-object) object).
+
+The document structure is defined using the fluent API of the QuestPDF library. Most layout methods described below (e.g., `.Page()`, `.Text()`, `.Cell()`) belong to QuestPDF unless otherwise specified.
 
 ## 5.1. Overall Document Structure
-*   **Rule:** A single page document.
+*   **Rule:** A single page document (QuestPDF: `Document.Create().Page(...)`).
 *   **Layout Rule:** The page uses a main table with two columns:
     *   Column 1 (Sidebar): Relative width of 1.
     *   Column 2 (Main Content): Relative width of 2.
@@ -19,8 +21,8 @@ The `QuestPdfDocumentGenerator` class implements `IQuestPdfDocumentGenerator` an
     #### 5.2.1. Avatar Image Section
     *   **Display Rule:** Centered, max height 120.
     *   **Conditional Rule (Avatar):** If `resumeData.AvatarImage` exists:
-        *   Displays `resumeData.AvatarImage` (fit height).
-        *   Draws a circular stroke border around it using `resumeData.PrimaryColor`.
+        *   Displays `resumeData.AvatarImage` (QuestPDF `Image` object, fit height).
+        *   Draws a circular stroke border around it using `SKPaint` (from SkiaSharp library, utilized by QuestPDF): `SKColor.Parse(resumeData.PrimaryColor)` (from SkiaSharp library) is used for the border color.
     *   **Mermaid (Avatar Logic):**
         ```mermaid
         graph TD
@@ -45,7 +47,7 @@ The `QuestPdfDocumentGenerator` class implements `IQuestPdfDocumentGenerator` an
     *   Followed by a horizontal line (Color: `resumeData.TextColor`).
 
     #### 5.2.5. Contact Details Section
-    *   **Layout:** Inner table (10mm icon column, relative text column).
+    *   **Layout:** Inner table (10mm icon column - QuestPDF `Unit.Millimetre`, relative text column).
     *   **Conditional Rules (for Address, Phone, Email, LinkedIn, GitHub):**
         *   If the respective `resumeData` field (e.g., `resumeData.Address`) is not null/empty:
             *   Display corresponding icon (`resumeData.AddressIcon`) in column 1.
@@ -109,7 +111,7 @@ The `QuestPdfDocumentGenerator` class implements `IQuestPdfDocumentGenerator` an
         ```
 
 ## 5.3. Main Content (Right Column)
-*   **Styling Rules:** Padding 15 units. Text generally `Colors.Black`.
+*   **Styling Rules:** Padding 15 units. Text generally `Colors.Black` (from `QuestPDF.Helpers.Colors`).
 *   Contains an inner table for its content elements.
 
     #### 5.3.1. Summary Section

@@ -1,12 +1,12 @@
 # Output Generation (`PdfGenerator.cs` & `ImageGenerator.cs`)
 
-These services are responsible for converting the structured `IDocument` (created by `QuestPdfDocumentGenerator`) into final output formats.
+These services are responsible for converting the structured `IDocument` (created by [`QuestPdfDocumentGenerator`](./QuestPdfDocumentGenerator.md)) into final output formats. They both depend on [`IQuestPdfDocumentGenerator`](../CoreComponents.md#iquestpdfdocumentgenerator-implemented-by-questpdfdocumentgenerator).
 
 ## 6.1. `PdfGenerator.cs` - Method: `byte[] GeneratePdf(ResumeData resumeData)`
-*   **Purpose:** Generates PDF bytes from `ResumeData`.
+*   **Purpose:** Generates PDF bytes from [`ResumeData`](../DataModels/ResumeData_And_ContentRequest.md#resumedata-domain-object).
 *   **Logic Flow:**
-    1. Calls `IQuestPdfDocumentGenerator.GenerateDocument(resumeData)` to get an `IDocument`.
-    2. Calls `document.GeneratePdf()` to get PDF bytes.
+    1. Calls `IQuestPdfDocumentGenerator.GenerateDocument(resumeData)` to get an `IDocument` (QuestPDF interface).
+    2. Calls `document.GeneratePdf()` (QuestPDF method) to get PDF bytes.
     3. Returns bytes.
 *   **Mermaid Diagram:**
     ```mermaid
@@ -25,10 +25,10 @@ These services are responsible for converting the structured `IDocument` (create
     ```
 
 ## 6.2. `ImageGenerator.cs` - Method: `IEnumerable<byte[]> GenerateImages(ResumeData resumeData)`
-*   **Purpose:** Generates image bytes (per page) from `ResumeData`.
+*   **Purpose:** Generates image bytes (per page) from [`ResumeData`](../DataModels/ResumeData_And_ContentRequest.md#resumedata-domain-object).
 *   **Logic Flow:**
-    1. Calls `IQuestPdfDocumentGenerator.GenerateDocument(resumeData)` to get an `IDocument`.
-    2. Calls `document.GenerateImages()` to get a list of image bytes.
+    1. Calls `IQuestPdfDocumentGenerator.GenerateDocument(resumeData)` to get an `IDocument` (QuestPDF interface).
+    2. Calls `document.GenerateImages()` (QuestPDF method) to get a list of image bytes.
     3. Returns list of bytes.
 *   **Mermaid Diagram:**
     ```mermaid
