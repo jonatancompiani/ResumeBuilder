@@ -2,7 +2,8 @@ using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using ResumeBuilder.Domain; // For ResumeData
 using SkiaSharp; // For SKPaint, SKColor if used directly in template
-using QuestPDF.Helpers; // For Colors class
+using QuestPDF.Helpers;
+using ResumeBuilder.Application.Abstractions;
 
 namespace ResumeBuilder.Application
 {
@@ -42,7 +43,7 @@ namespace ResumeBuilder.Application
                                         .AlignCenter()
                                         .AlignMiddle()
                                         .MaxHeight(120)
-                                        .Element(element => // Renamed 'e' to 'element'
+                                        .Element(element =>
                                         {
                                             var elem = element.Shrink();
                                             if (resumeData.AvatarImage is not null)
@@ -69,7 +70,7 @@ namespace ResumeBuilder.Application
                                         }
                                         );
 
-                                    sidebar.Cell().Row(2).ShowOnce().Element(sContainer => sContainer // Renamed 'container'
+                                    sidebar.Cell().Row(2).ShowOnce().Element(sContainer => sContainer
                                         .AlignCenter()
                                         .Text(resumeData.Name)
                                         .FontSize(24)
@@ -80,7 +81,7 @@ namespace ResumeBuilder.Application
                                         .Cell()
                                         .Row(3)
                                         .ShowOnce()
-                                        .Element(sContainer => sContainer // Renamed 'container'
+                                        .Element(sContainer => sContainer
                                                 .AlignCenter()
                                                 .Text(resumeData.Profession)
                                                 .FontSize(12)
@@ -91,7 +92,7 @@ namespace ResumeBuilder.Application
                                         .Row(4)
                                         .ShowOnce()
                                         .PaddingTop(20)
-                                        .Element(sContainer => sContainer // Renamed 'container'
+                                        .Element(sContainer => sContainer
                                                 .AlignLeft()
                                                 .PaddingBottom(10)
                                                 .Text(resumeData.HeaderContact)
@@ -210,7 +211,7 @@ namespace ResumeBuilder.Application
                                         .Row(7)
                                         .ShowOnce()
                                         .PaddingTop(20)
-                                        .Element(sContainer => sContainer // Renamed 'container'
+                                        .Element(sContainer => sContainer
                                                 .AlignLeft()
                                                 .PaddingBottom(10)
                                                 .Text(resumeData.HeaderSkills)
@@ -226,7 +227,7 @@ namespace ResumeBuilder.Application
                                         .ShowOnce()
                                         .Column(skills =>
                                         {
-                                            foreach (var skill in resumeData.SkillList ?? new System.Collections.Generic.List<string>())
+                                            foreach (var skill in resumeData.SkillList ?? new List<string>())
                                             {
                                                 skills.Item().PaddingTop(5).Row(row =>
                                                 {
@@ -242,7 +243,7 @@ namespace ResumeBuilder.Application
                                         .Row(10)
                                         .ShowOnce()
                                         .PaddingTop(20)
-                                        .Element(sContainer => sContainer // Renamed 'container'
+                                        .Element(sContainer => sContainer
                                                 .AlignLeft()
                                                 .PaddingBottom(10)
                                                 .Text(resumeData.HeaderLanguages)
@@ -256,15 +257,12 @@ namespace ResumeBuilder.Application
                                     {
                                         langTable.ColumnsDefinition(column => column.RelativeColumn());
 
-                                        foreach (var language in resumeData.LanguageList ?? new System.Collections.Generic.List<Domain.dto.Language>())
+                                        foreach (var language in resumeData.LanguageList ?? [])
                                         {
                                             langTable.Cell().PaddingTop(8).Table(x =>
                                             {
                                                 x.ColumnsDefinition(column => column.RelativeColumn());
-
                                                 x.Cell().Row(2).Text($"• {language.Name}").FontSize(10).FontColor(resumeData.TextColor);
-                                                // Assuming Language DTO has Level as a string or convertible to string
-                                                // If Level is an int, QuestPDF might handle .ToString() implicitly, otherwise ensure it's a string.
                                                 x.Cell().Row(3).Text($"     Level: {language.Level}").Light().FontSize(9).FontColor(resumeData.TextColor);
                                             });
                                         }
@@ -278,35 +276,35 @@ namespace ResumeBuilder.Application
                             .Column(2)
                             .ShowOnce()
                             .Padding(15)
-                            .Element(element => // Renamed 'e' to 'element'
+                            .Element(element =>
                                 element.Table(body =>
                                 {
                                     body.ColumnsDefinition(column => column.RelativeColumn());
 
-                                    body.Cell().Row(1).Element(bContainer => bContainer // Renamed 'container'
+                                    body.Cell().Row(1).Element(bContainer => bContainer
                                         .AlignLeft()
                                         .PaddingBottom(10)
                                         .Text(resumeData.HeaderSummary)
                                         .FontSize(12)
-                                        .FontColor(Colors.Black) // Assuming body text color is black
+                                        .FontColor(Colors.Black)
                                         );
 
                                     body.Cell().Row(2).ShowOnce().LineHorizontal(1).LineColor(resumeData.PrimaryColor);
 
-                                    body.Cell().Row(2).Element(bContainer => bContainer // Renamed 'container'
+                                    body.Cell().Row(2).Element(bContainer => bContainer
                                                                         .AlignLeft()
                                                                         .PaddingBottom(10)
                                                                         .Text(resumeData.Summary)
                                                                         .FontSize(12)
-                                                                        .FontColor(Colors.Black) // Assuming body text color is black
+                                                                        .FontColor(Colors.Black)
                                                                         );
 
-                                    body.Cell().Row(3).Element(bContainer => bContainer // Renamed 'container'
+                                    body.Cell().Row(3).Element(bContainer => bContainer
                                         .AlignLeft()
                                         .PaddingBottom(10)
                                         .Text(resumeData.HeaderExperience)
                                         .FontSize(12)
-                                        .FontColor(Colors.Black) // Assuming body text color is black
+                                        .FontColor(Colors.Black)
                                         );
                                     body.Cell().Row(4).ShowOnce().LineHorizontal(1).LineColor(resumeData.PrimaryColor);
 
@@ -314,40 +312,38 @@ namespace ResumeBuilder.Application
                                     {
                                         xpTable.ColumnsDefinition(column => column.RelativeColumn());
 
-                                        foreach (var wex in resumeData.WorkExperienceList ?? new System.Collections.Generic.List<Domain.dto.WorkExperience>())
+                                        foreach (var wex in resumeData.WorkExperienceList ?? [])
                                         {
                                             xpTable.Cell().ShowEntire().Table(x =>
                                             {
                                                 x.ColumnsDefinition(column => column.RelativeColumn());
-                                                // Assuming WorkExperience DTO has Year, JobTitle, Company, Description
-                                                x.Cell().Row(1).PaddingTop(10).Text(wex.Year).Thin().FontSize(9).FontColor(Colors.Black);
-                                                x.Cell().Row(2).Text(wex.JobTitle).Bold().FontColor(Colors.Black);
-                                                x.Cell().Row(3).Text(wex.Company).Light().FontColor(Colors.Black);
-                                                x.Cell().Row(4).Text(wex.Description).FontColor(Colors.Black);
+                                                x.Cell().Row(1).PaddingTop(10).Text($"{wex.StartDate} - {wex.EndDate}").Thin().FontSize(9);
+                                                x.Cell().Row(2).Text(wex.Role).Bold();
+                                                x.Cell().Row(3).Text(wex.Company).Light();
+                                                x.Cell().Row(4).Text(wex.Description);
                                             });
                                         }
                                     });
 
-                                    body.Cell().Row(6).Element(bContainer => bContainer // Renamed 'container'
+                                    body.Cell().Row(6).Element(bContainer => bContainer
                                         .AlignLeft()
                                         .PaddingTop(10)
                                         .PaddingBottom(10)
                                         .Text(resumeData.HeaderEducation)
                                         .FontSize(12)
-                                        .FontColor(Colors.Black) // Assuming body text color is black
+                                        .FontColor(Colors.Black)
                                         );
                                     body.Cell().Row(7).ShowOnce().LineHorizontal(1).LineColor(resumeData.PrimaryColor);
 
-                                    body.Cell().Row(8).Table(eduTable => // Renamed xpTable to eduTable for clarity
+                                    body.Cell().Row(8).Table(eduTable =>
                                     {
                                         eduTable.ColumnsDefinition(column => column.RelativeColumn());
 
-                                        foreach (var edu in resumeData.EducationList ?? new System.Collections.Generic.List<Domain.dto.Education>())
+                                        foreach (var edu in resumeData.EducationList ?? [])
                                         {
                                             eduTable.Cell().ShowEntire().Table(x =>
                                             {
                                                 x.ColumnsDefinition(column => column.RelativeColumn());
-                                                // Assuming Education DTO has Year, Title, Institution, Description
                                                 x.Cell().Row(1).PaddingTop(10).Text(edu.Year).Thin().FontSize(9).FontColor(Colors.Black);
                                                 x.Cell().Row(2).Text(edu.Title).Bold().FontColor(Colors.Black);
                                                 x.Cell().Row(3).Text(edu.Institution).Light().FontColor(Colors.Black);

@@ -1,23 +1,22 @@
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using ResumeBuilder.Application.Abstractions;
 using ResumeBuilder.Domain;
 using ResumeBuilder.Domain.Abstractions.Application;
 
-namespace ResumeBuilder.Application;
+namespace ResumeBuilder.Application.Abstractions;
 
-public class PdfGenerator : IPdfGenerator
+public class ImageGenerator : IImageGenerator
 {
     private readonly IQuestPdfDocumentGenerator _documentGenerator;
 
-    public PdfGenerator(IQuestPdfDocumentGenerator documentGenerator)
+    public ImageGenerator(IQuestPdfDocumentGenerator documentGenerator)
     {
         _documentGenerator = documentGenerator;
     }
 
-    public byte[] GeneratePdf(ResumeData resumeData)
+    public IEnumerable<byte[]> GenerateImages(ResumeData resumeData)
     {
         IDocument document = _documentGenerator.GenerateDocument(resumeData);
-        return document.GeneratePdf();
+        return document.GenerateImages();
     }
 }

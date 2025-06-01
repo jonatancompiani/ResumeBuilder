@@ -1,146 +1,145 @@
-using ResumeBuilder.Domain;
-using ResumeBuilder.Domain.dto;
 using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using System;
-using System.Linq; // Required for .Contains
-using System.Globalization; // Required for TextInfo
-using System.Collections.Generic; // Required for IEnumerable
+using ResumeBuilder.Domain;
+using ResumeBuilder.Domain.Abstractions.Application;
+using ResumeBuilder.Domain.dto;
+using System.Globalization;
 
-namespace ResumeBuilder.Application
+namespace ResumeBuilder.Application;
+public class ResumeContentService : IResumeDataProvider, IColorService
 {
-    public class ResumeContentService : IResumeDataProvider, IColorService
+    public ResumeData CreateFromRequest(ContentRequest request)
     {
-        public ResumeData CreateFromRequest(ContentRequest request)
+        var resumeData = new ResumeData
         {
-            var resumeData = new ResumeData
-            {
-                Name = request.Name,
-                Profession = request.Profession,
-                Address = request.Address,
-                Phone = request.Phone,
-                Email = request.Email,
-                Linkedin = request.Linkedin,
-                Github = request.Github,
-                SkillList = request.SkillList,
-                LanguageList = request.LanguageList,
-                Summary = request.Summary,
-                WorkExperienceList = request.WorkExperienceList,
-                EducationList = request.EducationList, // Assumes ContentRequest.EducationList is List<Education>
-                TextColor = Colors.White, // Default text color
-                // Default Headers - can be localized or configured elsewhere if needed
-                HeaderContact = "Contact",
-                HeaderSkills = "Skills",
-                HeaderLanguages = "Languages",
-                HeaderExperience = "Experience",
-                HeaderEducation = "Education",
-                HeaderSummary = "Summary"
-            };
+            Name = request.Name,
+            Profession = request.Profession,
+            Address = request.Address,
+            Phone = request.Phone,
+            Email = request.Email,
+            Linkedin = request.Linkedin,
+            Github = request.Github,
+            SkillList = request.SkillList,
+            LanguageList = request.LanguageList,
+            Summary = request.Summary,
+            WorkExperienceList = request.WorkExperienceList,
+            EducationList = request.EducationList,
+            TextColor = Colors.White,
 
-            if (!string.IsNullOrWhiteSpace(request.Base64avatar))
-            {
-                resumeData.AvatarImage = QuestPdfContentHelpers.Base64ToImage(request.Base64avatar);
-            }
+            HeaderContact = "Contact",
+            HeaderSkills = "Skills",
+            HeaderLanguages = "Languages",
+            HeaderExperience = "Experience",
+            HeaderEducation = "Education",
+            HeaderSummary = "Summary"
+        };
 
-            if (QuestPdfContentHelpers.ThemeColors.ContainsValue(request.ThemeColor))
-            {
-                resumeData.PrimaryColor = request.ThemeColor;
-            }
-            else
-            {
-                resumeData.PrimaryColor = QuestPdfContentHelpers.ThemeColors[Theme.Blue]; // Default theme color
-            }
-
-            // Load icons
-            resumeData.AddressIcon = QuestPdfContentHelpers.Base64ToImage(Base64Constants.b64addressStr);
-            resumeData.EmailIcon = QuestPdfContentHelpers.Base64ToImage(Base64Constants.b64emailStr);
-            resumeData.PhoneIcon = QuestPdfContentHelpers.Base64ToImage(Base64Constants.b64phoneStr);
-            resumeData.LinkedinIcon = QuestPdfContentHelpers.Base64ToImage(Base64Constants.b64linkedinStr);
-            resumeData.GithubIcon = QuestPdfContentHelpers.Base64ToImage(Base64Constants.b64githubStr);
-            
-            return resumeData;
+        if (!string.IsNullOrWhiteSpace(request.Base64avatar))
+        {
+            resumeData.AvatarImage = Convert.FromBase64String(request.Base64avatar);
         }
 
-        public IEnumerable<string> GetAvailableColors()
+        if (request.ThemeColor is not null && QuestPdfContentHelpers.GetThemeColors().ContainsValue(request.ThemeColor))
         {
-            return QuestPdfContentHelpers.ThemeColors.Values;
+            resumeData.PrimaryColor = request.ThemeColor;
+        }
+        else
+        {
+            resumeData.PrimaryColor = QuestPdfContentHelpers.GetThemeColors()[Theme.Blue];
         }
 
-        public ResumeData CreateExample()
-        {
-            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-            return new ResumeData
-            {
-                Name = textInfo.ToTitleCase("john doe"),
-                Profession = "Software Engineer",
-                Address = "123 Main Street, Anytown, USA",
-                Phone = "555-123-4567",
-                Email = "john.doe@email.com",
-                Linkedin = "linkedin.com/in/johndoe",
-                Github = "github.com/johndoe",
-                SkillList = new System.Collections.Generic.List<string> { "C#", ".NET", "Azure", "SQL", "JavaScript", "React" },
-                LanguageList = new System.Collections.Generic.List<Language>
-                {
-                    new Language { Name = "English", Level = 5 },
-                    new Language { Name = "Spanish", Level = 3 }
-                },
-                Summary = "A highly motivated and results-oriented software engineer with 5+ years of experience in developing and implementing innovative software solutions. Proven ability to work independently and as part of a team to deliver high-quality products on time and within budget.",
-                WorkExperienceList = new System.Collections.Generic.List<WorkExperience>
-                {
-                    new WorkExperience
-                    {
-                        Year = "2020 - Present",
-                        JobTitle = "Senior Software Engineer",
-                        Company = "Tech Solutions Inc.",
-                        Description = "Led the development of a new cloud-based platform, resulting in a 20% increase in efficiency. Mentored junior engineers and contributed to code reviews."
-                    },
-                    new WorkExperience
-                    {
-                        Year = "2018 - 2020",
-                        JobTitle = "Software Engineer",
-                        Company = "Web Innovations Co.",
-                        Description = "Developed and maintained web applications using .NET and React. Collaborated with cross-functional teams to define project requirements and deliver solutions."
-                    }
-                },
-                EducationList = new System.Collections.Generic.List<Education>
-                {
-                    new Education
-                    {
-                        Year = "2014 - 2018",
-                        Title = "Bachelor of Science in Computer Science",
-                        Institution = "University of Technology"
-                    }
-                },
-                AvatarImage = QuestPdfContentHelpers.Base64ToImage(Base64Constants.b64avatarStr),
-                AddressIcon = QuestPdfContentHelpers.Base64ToImage(Base64Constants.b64addressStr),
-                EmailIcon = QuestPdfContentHelpers.Base64ToImage(Base64Constants.b64emailStr),
-                PhoneIcon = QuestPdfContentHelpers.Base64ToImage(Base64Constants.b64phoneStr),
-                LinkedinIcon = QuestPdfContentHelpers.Base64ToImage(Base64Constants.b64linkedinStr),
-                GithubIcon = QuestPdfContentHelpers.Base64ToImage(Base64Constants.b64githubStr),
-                PrimaryColor = QuestPdfContentHelpers.ThemeColors[Theme.Blue],
-                TextColor = Colors.White,
-                HeaderContact = "Contact",
-                HeaderSkills = "Skills",
-                HeaderLanguages = "Languages",
-                HeaderExperience = "Experience",
-                HeaderEducation = "Education",
-                HeaderSummary = "Summary"
-            };
-        }
-
-        public ResumeData CreateWithColor(string color)
-        {
-            var resumeData = CreateExample(); // Start with example data
-
-            if (QuestPdfContentHelpers.ThemeColors.ContainsValue(color))
-            {
-                resumeData.PrimaryColor = color;
-            }
-            else
-            {
-                resumeData.PrimaryColor = QuestPdfContentHelpers.ThemeColors[Theme.Blue]; // Default if color is invalid
-            }
-            return resumeData;
-        }
+        // Load icons
+        resumeData.AddressIcon = Convert.FromBase64String(Base64Constants.b64addressStr);
+        resumeData.EmailIcon = Convert.FromBase64String(Base64Constants.b64emailStr);
+        resumeData.PhoneIcon = Convert.FromBase64String(Base64Constants.b64phoneStr);
+        resumeData.LinkedinIcon = Convert.FromBase64String(Base64Constants.b64linkedinStr);
+        resumeData.GithubIcon = Convert.FromBase64String(Base64Constants.b64githubStr);
+        
+        return resumeData;
     }
+
+    public IEnumerable<string> GetAvailableColors()
+    {
+        return QuestPdfContentHelpers.GetThemeColors().Values;
+    }
+
+    public ResumeData CreateExample()
+    {
+        var faker = new Bogus.Faker("en");
+        var name = faker.Name.FullName();
+        var profession = faker.Name.JobTitle();
+        var address = faker.Address.FullAddress();
+        var phone = faker.Phone.PhoneNumber();
+        var email = faker.Internet.Email();
+        var linkedin = $"linkedin.com/in/{faker.Internet.UserName()}";
+        var github = $"github.com/{faker.Internet.UserName()}";
+
+        var skillList = faker.Make(6, () => faker.Hacker.Noun()).Distinct().ToList();
+
+        var languageList = new List<Language>
+        {
+            new () { Name = "English", Level = "Fluent" },
+            new () { Name = faker.Address.Country(), Level = "Beginner" }
+        };
+
+        var summary = faker.Lorem.Sentence(20);
+
+        var workExperienceList = new List<WorkExperience>
+        {
+            new() {
+                Company = faker.Company.CompanyName(),
+                Role = "Senior " + faker.Name.JobTitle(),
+                StartDate = faker.Date.Past(5).ToString("yyyy-MM"),
+                EndDate = faker.Date.Recent(1).ToString("yyyy-MM"),
+                Description = faker.Lorem.Paragraph()
+            },
+            new() {
+                Company = faker.Company.CompanyName(),
+                Role = faker.Name.JobTitle(),
+                StartDate = faker.Date.Past(8, DateTime.Now.AddYears(-5)).ToString("yyyy-MM"),
+                EndDate = faker.Date.Past(5).ToString("yyyy-MM"),
+                Description = faker.Lorem.Paragraph()
+            }
+        };
+
+        var educationList = new List<Education>
+        {
+            new() {
+                Year = $"{faker.Date.Past(10, DateTime.Now.AddYears(-4)).Year} - {faker.Date.Past(4).Year}",
+                Title = faker.Name.JobArea() + " Degree",
+                Institution = faker.Company.CompanyName(),
+                Description = faker.Lorem.Sentence(10)
+            }
+        };
+
+        return new ResumeData
+        {
+            Name = name,
+            Profession = profession,
+            Address = address,
+            Phone = phone,
+            Email = email,
+            Linkedin = linkedin,
+            Github = github,
+            SkillList = skillList,
+            LanguageList = languageList,
+            Summary = summary,
+            WorkExperienceList = workExperienceList,
+            EducationList = educationList,
+            AvatarImage = Convert.FromBase64String(Base64Constants.b64avatarStr),
+            AddressIcon = Convert.FromBase64String(Base64Constants.b64addressStr),
+            EmailIcon = Convert.FromBase64String(Base64Constants.b64emailStr),
+            PhoneIcon = Convert.FromBase64String(Base64Constants.b64phoneStr),
+            LinkedinIcon = Convert.FromBase64String(Base64Constants.b64linkedinStr),
+            GithubIcon = Convert.FromBase64String(Base64Constants.b64githubStr),
+            PrimaryColor = QuestPdfContentHelpers.GetThemeColors()[Theme.Blue],
+            TextColor = Colors.White,
+            HeaderContact = "Contact",
+            HeaderSkills = "Skills",
+            HeaderLanguages = "Languages",
+            HeaderExperience = "Experience",
+            HeaderEducation = "Education",
+            HeaderSummary = "Summary"
+        };
+    }
+
 }
